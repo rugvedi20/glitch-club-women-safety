@@ -1,0 +1,1 @@
+This is a placeholder. Please replace this file with a short beep sound file named beep.wav or beep.mp3 for the activation sound to work.

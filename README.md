@@ -1,1 +1,1 @@
-# women-safety-hackathon
+# glitch-club-women-safety
