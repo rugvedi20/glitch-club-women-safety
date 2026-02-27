@@ -1,0 +1,1001 @@
+City,Area,Latitude,Longitude,Crime Type,Crime Frequency
+Mumbai,Kurla,19.0672,72.8797,Assault,3
+Delhi,Dwarka,28.6081,77.037,Eve-Teasing,17
+Mumbai,Colaba,18.9067,72.8147,Robbery,13
+Mumbai,Colaba,18.9067,72.8147,Eve-Teasing,14
+Delhi,Dwarka,28.6081,77.037,Eve-Teasing,3
+Mumbai,Borivali,19.2307,72.8544,Burglary,4
+Hyderabad,Banjara Hills,17.4239,78.4382,Theft,17
+Delhi,Dwarka,28.6081,77.037,Pickpocketing,1
+Bengaluru,Whitefield,12.9698,77.7499,Burglary,11
+Delhi,Dwarka,28.6081,77.037,Pickpocketing,4
+Hyderabad,Gachibowli,17.4401,78.3489,Eve-Teasing,3
+Pune,Baner,18.559,73.7898,Eve-Teasing,19
+Delhi,Dwarka,28.6081,77.037,Burglary,13
+Bengaluru,MG Road,12.9746,77.6068,Burglary,6
+Bengaluru,MG Road,12.9746,77.6068,Pickpocketing,20
+Pune,Swargate,18.5018,73.8636,Theft,11
+Delhi,Karol Bagh,28.6512,77.1908,Burglary,11
+Bengaluru,Jayanagar,12.925,77.5938,Assault,18
+Bengaluru,Jayanagar,12.925,77.5938,Pickpocketing,17
+Hyderabad,Hitech City,17.4499,78.3846,Eve-Teasing,8
+Bengaluru,Electronic City,12.8392,77.6773,Fraud,9
+Mumbai,Andheri,19.1197,72.8468,Fraud,4
+Pune,Shivaji Nagar,18.5308,73.8473,Cyber Crime,16
+Bengaluru,MG Road,12.9746,77.6068,Robbery,18
+Pune,Wakad,18.5978,73.7615,Fraud,7
+Mumbai,Kurla,19.0672,72.8797,Theft,17
+Mumbai,Colaba,18.9067,72.8147,Eve-Teasing,8
+Mumbai,Kurla,19.0672,72.8797,Eve-Teasing,17
+Delhi,Saket,28.5265,77.218,Cyber Crime,12
+Hyderabad,Secunderabad,17.4399,78.4983,Burglary,4
+Delhi,Saket,28.5265,77.218,Assault,11
+Bengaluru,Electronic City,12.8392,77.6773,Assault,10
+Pune,Shivaji Nagar,18.5308,73.8473,Eve-Teasing,14
+Pune,Kothrud,18.5074,73.8077,Assault,5
+Hyderabad,Secunderabad,17.4399,78.4983,Cyber Crime,10
+Hyderabad,Gachibowli,17.4401,78.3489,Assault,15
+Mumbai,Andheri,19.1197,72.8468,Pickpocketing,8
+Hyderabad,Madhapur,17.4483,78.3915,Eve-Teasing,6
+Hyderabad,Gachibowli,17.4401,78.3489,Pickpocketing,2
+Bengaluru,MG Road,12.9746,77.6068,Pickpocketing,18
+Pune,Swargate,18.5018,73.8636,Eve-Teasing,4
+Pune,Hadapsar,18.5089,73.9259,Assault,1
+Pune,Wakad,18.5978,73.7615,Robbery,18
+Delhi,Connaught Place,28.6315,77.2167,Robbery,14
+Mumbai,Colaba,18.9067,72.8147,Assault,12
+Pune,Hadapsar,18.5089,73.9259,Burglary,5
+Mumbai,Borivali,19.2307,72.8544,Burglary,10
+Pune,Hadapsar,18.5089,73.9259,Burglary,7
+Bengaluru,Whitefield,12.9698,77.7499,Pickpocketing,5
+Mumbai,Borivali,19.2307,72.8544,Cyber Crime,3
+Delhi,Lajpat Nagar,28.568,77.2388,Cyber Crime,12
+Bengaluru,Jayanagar,12.925,77.5938,Eve-Teasing,7
+Hyderabad,Charminar,17.3616,78.4747,Robbery,20
+Bengaluru,MG Road,12.9746,77.6068,Assault,7
+Hyderabad,Banjara Hills,17.4239,78.4382,Pickpocketing,9
+Pune,Baner,18.559,73.7898,Eve-Teasing,10
+Pune,Shivaji Nagar,18.5308,73.8473,Cyber Crime,6
+Delhi,Connaught Place,28.6315,77.2167,Eve-Teasing,16
+Bengaluru,Koramangala,12.9352,77.6245,Pickpocketing,11
+Pune,Kothrud,18.5074,73.8077,Assault,19
+Bengaluru,Whitefield,12.9698,77.7499,Assault,14
+Bengaluru,Hebbal,13.0358,77.597,Cyber Crime,19
+Mumbai,Borivali,19.2307,72.8544,Assault,6
+Bengaluru,MG Road,12.9746,77.6068,Burglary,4
+Mumbai,Dadar,19.0196,72.8423,Pickpocketing,13
+Mumbai,Dadar,19.0196,72.8423,Theft,2
+Hyderabad,Gachibowli,17.4401,78.3489,Burglary,17
+Hyderabad,Banjara Hills,17.4239,78.4382,Cyber Crime,18
+Mumbai,Colaba,18.9067,72.8147,Fraud,4
+Bengaluru,Jayanagar,12.925,77.5938,Assault,11
+Delhi,Rohini,28.7381,77.0922,Fraud,1
+Hyderabad,Madhapur,17.4483,78.3915,Eve-Teasing,9
+Pune,Swargate,18.5018,73.8636,Fraud,16
+Mumbai,Colaba,18.9067,72.8147,Fraud,16
+Bengaluru,Jayanagar,12.925,77.5938,Burglary,8
+Hyderabad,Gachibowli,17.4401,78.3489,Theft,7
+Bengaluru,Electronic City,12.8392,77.6773,Fraud,2
+Bengaluru,Whitefield,12.9698,77.7499,Eve-Teasing,6
+Delhi,Lajpat Nagar,28.568,77.2388,Eve-Teasing,14
+Pune,Swargate,18.5018,73.8636,Burglary,12
+Hyderabad,Hitech City,17.4499,78.3846,Robbery,10
+Hyderabad,Secunderabad,17.4399,78.4983,Theft,13
+Pune,Hadapsar,18.5089,73.9259,Pickpocketing,10
+Pune,Hadapsar,18.5089,73.9259,Cyber Crime,7
+Delhi,Connaught Place,28.6315,77.2167,Burglary,6
+Hyderabad,Charminar,17.3616,78.4747,Theft,18
+Delhi,Lajpat Nagar,28.568,77.2388,Robbery,11
+Bengaluru,Koramangala,12.9352,77.6245,Eve-Teasing,4
+Pune,Hadapsar,18.5089,73.9259,Theft,2
+Bengaluru,Hebbal,13.0358,77.597,Assault,10
+Hyderabad,Banjara Hills,17.4239,78.4382,Eve-Teasing,3
+Delhi,Lajpat Nagar,28.568,77.2388,Cyber Crime,16
+Pune,Swargate,18.5018,73.8636,Theft,6
+Mumbai,Andheri,19.1197,72.8468,Eve-Teasing,15
+Hyderabad,Secunderabad,17.4399,78.4983,Theft,8
+Delhi,Lajpat Nagar,28.568,77.2388,Eve-Teasing,6
+Bengaluru,Koramangala,12.9352,77.6245,Theft,19
+Mumbai,Kurla,19.0672,72.8797,Cyber Crime,3
+Mumbai,Colaba,18.9067,72.8147,Burglary,17
+Bengaluru,Jayanagar,12.925,77.5938,Pickpocketing,10
+Pune,Hadapsar,18.5089,73.9259,Burglary,18
+Pune,Swargate,18.5018,73.8636,Fraud,5
+Hyderabad,Secunderabad,17.4399,78.4983,Pickpocketing,14
+Hyderabad,Gachibowli,17.4401,78.3489,Cyber Crime,15
+Mumbai,Kurla,19.0672,72.8797,Burglary,7
+Bengaluru,MG Road,12.9746,77.6068,Eve-Teasing,9
+Bengaluru,Koramangala,12.9352,77.6245,Fraud,5
+Pune,Hadapsar,18.5089,73.9259,Assault,14
+Bengaluru,Electronic City,12.8392,77.6773,Pickpocketing,2
+Bengaluru,Hebbal,13.0358,77.597,Robbery,18
+Bengaluru,Whitefield,12.9698,77.7499,Assault,4
+Hyderabad,Gachibowli,17.4401,78.3489,Pickpocketing,4
+Mumbai,Dadar,19.0196,72.8423,Fraud,20
+Mumbai,Dadar,19.0196,72.8423,Cyber Crime,12
+Mumbai,Bandra,19.0558,72.8295,Robbery,2
+Delhi,Saket,28.5265,77.218,Eve-Teasing,14
+Hyderabad,Gachibowli,17.4401,78.3489,Theft,17
+Pune,Kothrud,18.5074,73.8077,Cyber Crime,18
+Pune,Swargate,18.5018,73.8636,Robbery,12
+Delhi,Saket,28.5265,77.218,Cyber Crime,7
+Bengaluru,Jayanagar,12.925,77.5938,Eve-Teasing,7
+Pune,Shivaji Nagar,18.5308,73.8473,Cyber Crime,12
+Hyderabad,Hitech City,17.4499,78.3846,Eve-Teasing,20
+Mumbai,Borivali,19.2307,72.8544,Fraud,5
+Delhi,Dwarka,28.6081,77.037,Fraud,7
+Hyderabad,Banjara Hills,17.4239,78.4382,Cyber Crime,20
+Mumbai,Borivali,19.2307,72.8544,Cyber Crime,10
+Bengaluru,Whitefield,12.9698,77.7499,Pickpocketing,14
+Delhi,Dwarka,28.6081,77.037,Fraud,17
+Mumbai,Borivali,19.2307,72.8544,Assault,14
+Delhi,Saket,28.5265,77.218,Fraud,10
+Bengaluru,Electronic City,12.8392,77.6773,Robbery,1
+Delhi,Dwarka,28.6081,77.037,Assault,10
+Bengaluru,Koramangala,12.9352,77.6245,Theft,9
+Bengaluru,Koramangala,12.9352,77.6245,Eve-Teasing,2
+Delhi,Rohini,28.7381,77.0922,Burglary,20
+Hyderabad,Secunderabad,17.4399,78.4983,Robbery,12
+Mumbai,Borivali,19.2307,72.8544,Robbery,8
+Delhi,Rohini,28.7381,77.0922,Burglary,4
+Delhi,Connaught Place,28.6315,77.2167,Pickpocketing,1
+Bengaluru,MG Road,12.9746,77.6068,Assault,12
+Pune,Wakad,18.5978,73.7615,Eve-Teasing,3
+Bengaluru,Koramangala,12.9352,77.6245,Pickpocketing,6
+Pune,Hadapsar,18.5089,73.9259,Cyber Crime,6
+Pune,Wakad,18.5978,73.7615,Theft,18
+Hyderabad,Hitech City,17.4499,78.3846,Assault,17
+Pune,Shivaji Nagar,18.5308,73.8473,Assault,6
+Bengaluru,Jayanagar,12.925,77.5938,Pickpocketing,15
+Pune,Baner,18.559,73.7898,Burglary,6
+Mumbai,Borivali,19.2307,72.8544,Theft,16
+Hyderabad,Secunderabad,17.4399,78.4983,Robbery,19
+Hyderabad,Gachibowli,17.4401,78.3489,Theft,4
+Bengaluru,MG Road,12.9746,77.6068,Theft,8
+Hyderabad,Gachibowli,17.4401,78.3489,Eve-Teasing,20
+Hyderabad,Charminar,17.3616,78.4747,Fraud,14
+Bengaluru,Jayanagar,12.925,77.5938,Fraud,15
+Bengaluru,MG Road,12.9746,77.6068,Assault,8
+Hyderabad,Secunderabad,17.4399,78.4983,Eve-Teasing,20
+Mumbai,Kurla,19.0672,72.8797,Burglary,17
+Bengaluru,Electronic City,12.8392,77.6773,Assault,9
+Bengaluru,Koramangala,12.9352,77.6245,Eve-Teasing,2
+Mumbai,Colaba,18.9067,72.8147,Burglary,11
+Pune,Wakad,18.5978,73.7615,Eve-Teasing,19
+Delhi,Saket,28.5265,77.218,Theft,18
+Hyderabad,Charminar,17.3616,78.4747,Robbery,5
+Bengaluru,Electronic City,12.8392,77.6773,Theft,5
+Hyderabad,Banjara Hills,17.4239,78.4382,Assault,12
+Mumbai,Dadar,19.0196,72.8423,Assault,3
+Hyderabad,Banjara Hills,17.4239,78.4382,Eve-Teasing,16
+Pune,Swargate,18.5018,73.8636,Fraud,1
+Mumbai,Andheri,19.1197,72.8468,Pickpocketing,13
+Delhi,Connaught Place,28.6315,77.2167,Assault,16
+Hyderabad,Hitech City,17.4499,78.3846,Eve-Teasing,20
+Delhi,Lajpat Nagar,28.568,77.2388,Cyber Crime,9
+Bengaluru,MG Road,12.9746,77.6068,Robbery,17
+Pune,Swargate,18.5018,73.8636,Fraud,12
+Pune,Wakad,18.5978,73.7615,Assault,17
+Mumbai,Borivali,19.2307,72.8544,Burglary,1
+Delhi,Saket,28.5265,77.218,Eve-Teasing,18
+Delhi,Rohini,28.7381,77.0922,Cyber Crime,13
+Hyderabad,Banjara Hills,17.4239,78.4382,Pickpocketing,15
+Pune,Shivaji Nagar,18.5308,73.8473,Pickpocketing,2
+Hyderabad,Madhapur,17.4483,78.3915,Fraud,17
+Mumbai,Bandra,19.0558,72.8295,Theft,9
+Pune,Shivaji Nagar,18.5308,73.8473,Burglary,1
+Delhi,Lajpat Nagar,28.568,77.2388,Assault,1
+Delhi,Karol Bagh,28.6512,77.1908,Fraud,17
+Bengaluru,Electronic City,12.8392,77.6773,Robbery,14
+Delhi,Connaught Place,28.6315,77.2167,Fraud,13
+Delhi,Dwarka,28.6081,77.037,Fraud,19
+Mumbai,Borivali,19.2307,72.8544,Pickpocketing,19
+Bengaluru,Koramangala,12.9352,77.6245,Cyber Crime,13
+Pune,Kothrud,18.5074,73.8077,Assault,1
+Bengaluru,MG Road,12.9746,77.6068,Theft,8
+Delhi,Rohini,28.7381,77.0922,Cyber Crime,19
+Hyderabad,Charminar,17.3616,78.4747,Eve-Teasing,18
+Bengaluru,Hebbal,13.0358,77.597,Burglary,4
+Hyderabad,Gachibowli,17.4401,78.3489,Eve-Teasing,9
+Delhi,Saket,28.5265,77.218,Eve-Teasing,9
+Mumbai,Kurla,19.0672,72.8797,Eve-Teasing,13
+Mumbai,Colaba,18.9067,72.8147,Eve-Teasing,20
+Delhi,Connaught Place,28.6315,77.2167,Theft,16
+Mumbai,Kurla,19.0672,72.8797,Robbery,1
+Mumbai,Kurla,19.0672,72.8797,Cyber Crime,3
+Pune,Kothrud,18.5074,73.8077,Cyber Crime,6
+Mumbai,Dadar,19.0196,72.8423,Pickpocketing,7
+Pune,Hadapsar,18.5089,73.9259,Theft,11
+Hyderabad,Secunderabad,17.4399,78.4983,Theft,3
+Delhi,Lajpat Nagar,28.568,77.2388,Pickpocketing,12
+Hyderabad,Madhapur,17.4483,78.3915,Theft,18
+Delhi,Rohini,28.7381,77.0922,Pickpocketing,15
+Hyderabad,Secunderabad,17.4399,78.4983,Theft,1
+Hyderabad,Madhapur,17.4483,78.3915,Eve-Teasing,4
+Mumbai,Kurla,19.0672,72.8797,Cyber Crime,2
+Mumbai,Dadar,19.0196,72.8423,Robbery,4
+Bengaluru,Electronic City,12.8392,77.6773,Fraud,14
+Mumbai,Dadar,19.0196,72.8423,Fraud,2
+Mumbai,Dadar,19.0196,72.8423,Burglary,11
+Bengaluru,Electronic City,12.8392,77.6773,Theft,2
+Mumbai,Bandra,19.0558,72.8295,Assault,9
+Delhi,Saket,28.5265,77.218,Assault,8
+Delhi,Dwarka,28.6081,77.037,Robbery,4
+Delhi,Dwarka,28.6081,77.037,Cyber Crime,4
+Delhi,Saket,28.5265,77.218,Pickpocketing,2
+Bengaluru,Whitefield,12.9698,77.7499,Robbery,2
+Pune,Wakad,18.5978,73.7615,Pickpocketing,1
+Pune,Swargate,18.5018,73.8636,Theft,13
+Pune,Wakad,18.5978,73.7615,Cyber Crime,7
+Hyderabad,Secunderabad,17.4399,78.4983,Pickpocketing,8
+Bengaluru,Electronic City,12.8392,77.6773,Cyber Crime,16
+Pune,Wakad,18.5978,73.7615,Assault,14
+Pune,Baner,18.559,73.7898,Robbery,3
+Delhi,Connaught Place,28.6315,77.2167,Assault,15
+Delhi,Lajpat Nagar,28.568,77.2388,Eve-Teasing,2
+Pune,Shivaji Nagar,18.5308,73.8473,Eve-Teasing,16
+Mumbai,Dadar,19.0196,72.8423,Fraud,12
+Mumbai,Kurla,19.0672,72.8797,Burglary,1
+Mumbai,Kurla,19.0672,72.8797,Theft,5
+Bengaluru,Whitefield,12.9698,77.7499,Robbery,8
+Delhi,Dwarka,28.6081,77.037,Fraud,13
+Mumbai,Borivali,19.2307,72.8544,Pickpocketing,4
+Pune,Kothrud,18.5074,73.8077,Eve-Teasing,13
+Mumbai,Borivali,19.2307,72.8544,Cyber Crime,16
+Bengaluru,Hebbal,13.0358,77.597,Pickpocketing,2
+Pune,Wakad,18.5978,73.7615,Pickpocketing,2
+Hyderabad,Secunderabad,17.4399,78.4983,Fraud,20
+Delhi,Karol Bagh,28.6512,77.1908,Assault,19
+Mumbai,Colaba,18.9067,72.8147,Theft,1
+Mumbai,Colaba,18.9067,72.8147,Eve-Teasing,8
+Delhi,Connaught Place,28.6315,77.2167,Burglary,3
+Mumbai,Andheri,19.1197,72.8468,Assault,20
+Mumbai,Colaba,18.9067,72.8147,Burglary,19
+Mumbai,Andheri,19.1197,72.8468,Robbery,20
+Hyderabad,Charminar,17.3616,78.4747,Assault,18
+Delhi,Connaught Place,28.6315,77.2167,Pickpocketing,2
+Mumbai,Bandra,19.0558,72.8295,Robbery,12
+Hyderabad,Charminar,17.3616,78.4747,Pickpocketing,20
+Mumbai,Kurla,19.0672,72.8797,Robbery,9
+Hyderabad,Madhapur,17.4483,78.3915,Theft,19
+Hyderabad,Gachibowli,17.4401,78.3489,Fraud,6
+Bengaluru,Whitefield,12.9698,77.7499,Burglary,17
+Bengaluru,Hebbal,13.0358,77.597,Eve-Teasing,15
+Mumbai,Colaba,18.9067,72.8147,Cyber Crime,18
+Delhi,Dwarka,28.6081,77.037,Cyber Crime,7
+Pune,Wakad,18.5978,73.7615,Fraud,16
+Delhi,Dwarka,28.6081,77.037,Eve-Teasing,13
+Delhi,Dwarka,28.6081,77.037,Burglary,10
+Delhi,Karol Bagh,28.6512,77.1908,Theft,10
+Pune,Shivaji Nagar,18.5308,73.8473,Robbery,12
+Delhi,Dwarka,28.6081,77.037,Robbery,4
+Hyderabad,Madhapur,17.4483,78.3915,Robbery,13
+Delhi,Connaught Place,28.6315,77.2167,Cyber Crime,7
+Hyderabad,Secunderabad,17.4399,78.4983,Cyber Crime,5
+Bengaluru,Electronic City,12.8392,77.6773,Pickpocketing,13
+Bengaluru,Jayanagar,12.925,77.5938,Theft,4
+Bengaluru,Koramangala,12.9352,77.6245,Theft,5
+Hyderabad,Secunderabad,17.4399,78.4983,Assault,13
+Bengaluru,MG Road,12.9746,77.6068,Fraud,5
+Hyderabad,Hitech City,17.4499,78.3846,Robbery,12
+Bengaluru,Electronic City,12.8392,77.6773,Eve-Teasing,9
+Bengaluru,Koramangala,12.9352,77.6245,Burglary,7
+Hyderabad,Charminar,17.3616,78.4747,Burglary,10
+Bengaluru,Koramangala,12.9352,77.6245,Robbery,18
+Hyderabad,Madhapur,17.4483,78.3915,Burglary,15
+Pune,Shivaji Nagar,18.5308,73.8473,Theft,19
+Bengaluru,Jayanagar,12.925,77.5938,Robbery,15
+Mumbai,Andheri,19.1197,72.8468,Fraud,12
+Pune,Shivaji Nagar,18.5308,73.8473,Pickpocketing,4
+Mumbai,Colaba,18.9067,72.8147,Robbery,12
+Mumbai,Dadar,19.0196,72.8423,Robbery,14
+Mumbai,Bandra,19.0558,72.8295,Cyber Crime,18
+Mumbai,Kurla,19.0672,72.8797,Fraud,19
+Mumbai,Colaba,18.9067,72.8147,Burglary,19
+Delhi,Lajpat Nagar,28.568,77.2388,Eve-Teasing,1
+Pune,Wakad,18.5978,73.7615,Theft,7
+Hyderabad,Charminar,17.3616,78.4747,Cyber Crime,9
+Hyderabad,Secunderabad,17.4399,78.4983,Cyber Crime,11
+Hyderabad,Gachibowli,17.4401,78.3489,Theft,18
+Pune,Kothrud,18.5074,73.8077,Fraud,12
+Pune,Kothrud,18.5074,73.8077,Robbery,19
+Delhi,Rohini,28.7381,77.0922,Theft,5
+Hyderabad,Madhapur,17.4483,78.3915,Eve-Teasing,19
+Bengaluru,Hebbal,13.0358,77.597,Assault,2
+Bengaluru,Electronic City,12.8392,77.6773,Fraud,20
+Delhi,Saket,28.5265,77.218,Theft,14
+Bengaluru,Koramangala,12.9352,77.6245,Theft,7
+Hyderabad,Secunderabad,17.4399,78.4983,Burglary,18
+Hyderabad,Gachibowli,17.4401,78.3489,Eve-Teasing,20
+Pune,Shivaji Nagar,18.5308,73.8473,Assault,3
+Delhi,Rohini,28.7381,77.0922,Assault,5
+Mumbai,Andheri,19.1197,72.8468,Robbery,2
+Hyderabad,Gachibowli,17.4401,78.3489,Eve-Teasing,16
+Delhi,Dwarka,28.6081,77.037,Pickpocketing,17
+Mumbai,Dadar,19.0196,72.8423,Assault,15
+Hyderabad,Charminar,17.3616,78.4747,Cyber Crime,20
+Delhi,Saket,28.5265,77.218,Eve-Teasing,8
+Bengaluru,Jayanagar,12.925,77.5938,Assault,19
+Mumbai,Kurla,19.0672,72.8797,Assault,15
+Mumbai,Andheri,19.1197,72.8468,Pickpocketing,2
+Mumbai,Bandra,19.0558,72.8295,Cyber Crime,18
+Pune,Baner,18.559,73.7898,Burglary,10
+Pune,Swargate,18.5018,73.8636,Theft,16
+Mumbai,Colaba,18.9067,72.8147,Eve-Teasing,19
+Delhi,Dwarka,28.6081,77.037,Pickpocketing,20
+Hyderabad,Banjara Hills,17.4239,78.4382,Theft,6
+Delhi,Connaught Place,28.6315,77.2167,Theft,8
+Delhi,Connaught Place,28.6315,77.2167,Assault,6
+Bengaluru,Koramangala,12.9352,77.6245,Burglary,14
+Bengaluru,MG Road,12.9746,77.6068,Burglary,5
+Mumbai,Kurla,19.0672,72.8797,Theft,1
+Pune,Wakad,18.5978,73.7615,Theft,12
+Pune,Baner,18.559,73.7898,Eve-Teasing,11
+Hyderabad,Hitech City,17.4499,78.3846,Assault,13
+Delhi,Karol Bagh,28.6512,77.1908,Eve-Teasing,4
+Mumbai,Kurla,19.0672,72.8797,Cyber Crime,20
+Bengaluru,MG Road,12.9746,77.6068,Theft,13
+Hyderabad,Banjara Hills,17.4239,78.4382,Eve-Teasing,13
+Bengaluru,Whitefield,12.9698,77.7499,Eve-Teasing,3
+Hyderabad,Gachibowli,17.4401,78.3489,Theft,5
+Pune,Shivaji Nagar,18.5308,73.8473,Theft,6
+Bengaluru,Koramangala,12.9352,77.6245,Pickpocketing,5
+Mumbai,Borivali,19.2307,72.8544,Theft,13
+Pune,Wakad,18.5978,73.7615,Assault,5
+Hyderabad,Secunderabad,17.4399,78.4983,Pickpocketing,19
+Delhi,Lajpat Nagar,28.568,77.2388,Pickpocketing,20
+Mumbai,Andheri,19.1197,72.8468,Pickpocketing,9
+Bengaluru,Hebbal,13.0358,77.597,Cyber Crime,5
+Mumbai,Bandra,19.0558,72.8295,Theft,8
+Delhi,Dwarka,28.6081,77.037,Cyber Crime,17
+Delhi,Connaught Place,28.6315,77.2167,Burglary,8
+Pune,Swargate,18.5018,73.8636,Robbery,4
+Hyderabad,Banjara Hills,17.4239,78.4382,Cyber Crime,3
+Hyderabad,Gachibowli,17.4401,78.3489,Eve-Teasing,19
+Bengaluru,Hebbal,13.0358,77.597,Theft,16
+Mumbai,Kurla,19.0672,72.8797,Eve-Teasing,13
+Delhi,Dwarka,28.6081,77.037,Theft,8
+Delhi,Karol Bagh,28.6512,77.1908,Pickpocketing,20
+Delhi,Rohini,28.7381,77.0922,Cyber Crime,3
+Pune,Kothrud,18.5074,73.8077,Robbery,16
+Delhi,Connaught Place,28.6315,77.2167,Cyber Crime,8
+Hyderabad,Madhapur,17.4483,78.3915,Fraud,12
+Mumbai,Colaba,18.9067,72.8147,Cyber Crime,13
+Bengaluru,MG Road,12.9746,77.6068,Fraud,15
+Hyderabad,Gachibowli,17.4401,78.3489,Eve-Teasing,8
+Pune,Swargate,18.5018,73.8636,Pickpocketing,10
+Pune,Swargate,18.5018,73.8636,Cyber Crime,7
+Mumbai,Bandra,19.0558,72.8295,Fraud,18
+Delhi,Lajpat Nagar,28.568,77.2388,Assault,10
+Delhi,Dwarka,28.6081,77.037,Cyber Crime,3
+Bengaluru,MG Road,12.9746,77.6068,Theft,19
+Hyderabad,Banjara Hills,17.4239,78.4382,Theft,16
+Hyderabad,Hitech City,17.4499,78.3846,Eve-Teasing,19
+Delhi,Connaught Place,28.6315,77.2167,Cyber Crime,19
+Mumbai,Andheri,19.1197,72.8468,Assault,5
+Pune,Hadapsar,18.5089,73.9259,Burglary,11
+Hyderabad,Hitech City,17.4499,78.3846,Pickpocketing,16
+Delhi,Karol Bagh,28.6512,77.1908,Burglary,15
+Mumbai,Bandra,19.0558,72.8295,Robbery,8
+Mumbai,Andheri,19.1197,72.8468,Pickpocketing,10
+Delhi,Connaught Place,28.6315,77.2167,Burglary,2
+Bengaluru,Hebbal,13.0358,77.597,Fraud,7
+Bengaluru,Whitefield,12.9698,77.7499,Burglary,5
+Hyderabad,Madhapur,17.4483,78.3915,Fraud,20
+Pune,Baner,18.559,73.7898,Assault,5
+Bengaluru,Hebbal,13.0358,77.597,Pickpocketing,8
+Delhi,Rohini,28.7381,77.0922,Assault,20
+Mumbai,Kurla,19.0672,72.8797,Pickpocketing,17
+Bengaluru,Whitefield,12.9698,77.7499,Eve-Teasing,15
+Pune,Baner,18.559,73.7898,Cyber Crime,17
+Mumbai,Colaba,18.9067,72.8147,Burglary,8
+Bengaluru,Koramangala,12.9352,77.6245,Assault,4
+Bengaluru,MG Road,12.9746,77.6068,Theft,11
+Bengaluru,Whitefield,12.9698,77.7499,Eve-Teasing,14
+Bengaluru,Koramangala,12.9352,77.6245,Assault,18
+Mumbai,Bandra,19.0558,72.8295,Burglary,11
+Mumbai,Kurla,19.0672,72.8797,Assault,20
+Pune,Swargate,18.5018,73.8636,Cyber Crime,4
+Bengaluru,Jayanagar,12.925,77.5938,Eve-Teasing,5
+Mumbai,Dadar,19.0196,72.8423,Cyber Crime,12
+Bengaluru,Electronic City,12.8392,77.6773,Cyber Crime,12
+Mumbai,Colaba,18.9067,72.8147,Cyber Crime,16
+Mumbai,Borivali,19.2307,72.8544,Cyber Crime,3
+Pune,Kothrud,18.5074,73.8077,Robbery,19
+Pune,Wakad,18.5978,73.7615,Eve-Teasing,18
+Hyderabad,Gachibowli,17.4401,78.3489,Eve-Teasing,8
+Bengaluru,Hebbal,13.0358,77.597,Cyber Crime,3
+Mumbai,Bandra,19.0558,72.8295,Pickpocketing,9
+Delhi,Saket,28.5265,77.218,Assault,19
+Pune,Hadapsar,18.5089,73.9259,Robbery,10
+Bengaluru,MG Road,12.9746,77.6068,Fraud,17
+Pune,Kothrud,18.5074,73.8077,Theft,13
+Mumbai,Kurla,19.0672,72.8797,Assault,1
+Bengaluru,Koramangala,12.9352,77.6245,Theft,17
+Delhi,Dwarka,28.6081,77.037,Cyber Crime,12
+Mumbai,Kurla,19.0672,72.8797,Theft,2
+Pune,Hadapsar,18.5089,73.9259,Cyber Crime,13
+Hyderabad,Charminar,17.3616,78.4747,Assault,6
+Bengaluru,Electronic City,12.8392,77.6773,Pickpocketing,3
+Bengaluru,MG Road,12.9746,77.6068,Eve-Teasing,14
+Mumbai,Borivali,19.2307,72.8544,Assault,15
+Delhi,Connaught Place,28.6315,77.2167,Theft,19
+Hyderabad,Charminar,17.3616,78.4747,Pickpocketing,6
+Delhi,Saket,28.5265,77.218,Assault,1
+Pune,Wakad,18.5978,73.7615,Robbery,19
+Bengaluru,Koramangala,12.9352,77.6245,Cyber Crime,18
+Pune,Kothrud,18.5074,73.8077,Cyber Crime,3
+Delhi,Rohini,28.7381,77.0922,Robbery,16
+Delhi,Saket,28.5265,77.218,Robbery,3
+Bengaluru,Electronic City,12.8392,77.6773,Cyber Crime,20
+Bengaluru,Jayanagar,12.925,77.5938,Theft,6
+Bengaluru,MG Road,12.9746,77.6068,Eve-Teasing,13
+Mumbai,Borivali,19.2307,72.8544,Fraud,8
+Bengaluru,Whitefield,12.9698,77.7499,Pickpocketing,10
+Hyderabad,Banjara Hills,17.4239,78.4382,Cyber Crime,10
+Mumbai,Colaba,18.9067,72.8147,Assault,10
+Bengaluru,Electronic City,12.8392,77.6773,Pickpocketing,8
+Mumbai,Bandra,19.0558,72.8295,Robbery,5
+Mumbai,Borivali,19.2307,72.8544,Pickpocketing,10
+Delhi,Saket,28.5265,77.218,Assault,1
+Pune,Shivaji Nagar,18.5308,73.8473,Burglary,1
+Hyderabad,Gachibowli,17.4401,78.3489,Fraud,7
+Bengaluru,Koramangala,12.9352,77.6245,Fraud,12
+Bengaluru,Jayanagar,12.925,77.5938,Pickpocketing,16
+Delhi,Rohini,28.7381,77.0922,Robbery,16
+Delhi,Dwarka,28.6081,77.037,Cyber Crime,5
+Pune,Hadapsar,18.5089,73.9259,Cyber Crime,6
+Bengaluru,Jayanagar,12.925,77.5938,Eve-Teasing,1
+Hyderabad,Madhapur,17.4483,78.3915,Cyber Crime,3
+Delhi,Rohini,28.7381,77.0922,Theft,1
+Delhi,Saket,28.5265,77.218,Theft,2
+Delhi,Connaught Place,28.6315,77.2167,Assault,17
+Delhi,Karol Bagh,28.6512,77.1908,Fraud,5
+Mumbai,Borivali,19.2307,72.8544,Fraud,20
+Delhi,Saket,28.5265,77.218,Burglary,9
+Bengaluru,Whitefield,12.9698,77.7499,Robbery,15
+Mumbai,Dadar,19.0196,72.8423,Cyber Crime,5
+Delhi,Saket,28.5265,77.218,Robbery,20
+Pune,Baner,18.559,73.7898,Burglary,4
+Bengaluru,Jayanagar,12.925,77.5938,Burglary,13
+Bengaluru,Jayanagar,12.925,77.5938,Fraud,10
+Mumbai,Colaba,18.9067,72.8147,Burglary,6
+Hyderabad,Banjara Hills,17.4239,78.4382,Robbery,20
+Delhi,Rohini,28.7381,77.0922,Eve-Teasing,5
+Bengaluru,Hebbal,13.0358,77.597,Eve-Teasing,6
+Mumbai,Colaba,18.9067,72.8147,Robbery,11
+Delhi,Karol Bagh,28.6512,77.1908,Cyber Crime,16
+Pune,Shivaji Nagar,18.5308,73.8473,Robbery,4
+Delhi,Saket,28.5265,77.218,Robbery,15
+Bengaluru,Whitefield,12.9698,77.7499,Cyber Crime,2
+Delhi,Dwarka,28.6081,77.037,Robbery,19
+Pune,Shivaji Nagar,18.5308,73.8473,Burglary,6
+Delhi,Karol Bagh,28.6512,77.1908,Robbery,14
+Delhi,Saket,28.5265,77.218,Assault,13
+Pune,Kothrud,18.5074,73.8077,Robbery,16
+Hyderabad,Secunderabad,17.4399,78.4983,Robbery,9
+Pune,Wakad,18.5978,73.7615,Assault,14
+Bengaluru,Hebbal,13.0358,77.597,Theft,1
+Bengaluru,Hebbal,13.0358,77.597,Fraud,16
+Bengaluru,MG Road,12.9746,77.6068,Pickpocketing,18
+Bengaluru,MG Road,12.9746,77.6068,Fraud,14
+Hyderabad,Banjara Hills,17.4239,78.4382,Robbery,1
+Mumbai,Colaba,18.9067,72.8147,Eve-Teasing,16
+Delhi,Dwarka,28.6081,77.037,Eve-Teasing,11
+Hyderabad,Hitech City,17.4499,78.3846,Pickpocketing,8
+Delhi,Dwarka,28.6081,77.037,Robbery,14
+Pune,Baner,18.559,73.7898,Burglary,4
+Mumbai,Dadar,19.0196,72.8423,Assault,18
+Hyderabad,Gachibowli,17.4401,78.3489,Pickpocketing,9
+Bengaluru,Whitefield,12.9698,77.7499,Theft,11
+Pune,Swargate,18.5018,73.8636,Assault,11
+Mumbai,Kurla,19.0672,72.8797,Assault,7
+Mumbai,Dadar,19.0196,72.8423,Cyber Crime,1
+Pune,Baner,18.559,73.7898,Theft,11
+Delhi,Rohini,28.7381,77.0922,Cyber Crime,18
+Hyderabad,Charminar,17.3616,78.4747,Eve-Teasing,1
+Pune,Swargate,18.5018,73.8636,Assault,10
+Pune,Baner,18.559,73.7898,Fraud,11
+Delhi,Connaught Place,28.6315,77.2167,Cyber Crime,4
+Delhi,Connaught Place,28.6315,77.2167,Pickpocketing,13
+Hyderabad,Charminar,17.3616,78.4747,Pickpocketing,14
+Pune,Shivaji Nagar,18.5308,73.8473,Assault,1
+Delhi,Rohini,28.7381,77.0922,Assault,15
+Bengaluru,Jayanagar,12.925,77.5938,Theft,2
+Bengaluru,Jayanagar,12.925,77.5938,Cyber Crime,17
+Bengaluru,Jayanagar,12.925,77.5938,Theft,6
+Delhi,Lajpat Nagar,28.568,77.2388,Fraud,10
+Delhi,Karol Bagh,28.6512,77.1908,Theft,3
+Hyderabad,Madhapur,17.4483,78.3915,Assault,8
+Delhi,Rohini,28.7381,77.0922,Assault,7
+Mumbai,Bandra,19.0558,72.8295,Pickpocketing,14
+Delhi,Saket,28.5265,77.218,Theft,15
+Delhi,Dwarka,28.6081,77.037,Eve-Teasing,12
+Pune,Wakad,18.5978,73.7615,Fraud,3
+Bengaluru,Whitefield,12.9698,77.7499,Pickpocketing,17
+Hyderabad,Charminar,17.3616,78.4747,Fraud,15
+Delhi,Rohini,28.7381,77.0922,Fraud,1
+Hyderabad,Secunderabad,17.4399,78.4983,Pickpocketing,2
+Mumbai,Dadar,19.0196,72.8423,Robbery,9
+Delhi,Saket,28.5265,77.218,Theft,7
+Bengaluru,Electronic City,12.8392,77.6773,Cyber Crime,17
+Hyderabad,Banjara Hills,17.4239,78.4382,Theft,7
+Mumbai,Dadar,19.0196,72.8423,Robbery,2
+Hyderabad,Hitech City,17.4499,78.3846,Eve-Teasing,15
+Pune,Hadapsar,18.5089,73.9259,Theft,12
+Mumbai,Bandra,19.0558,72.8295,Burglary,1
+Delhi,Connaught Place,28.6315,77.2167,Eve-Teasing,19
+Hyderabad,Madhapur,17.4483,78.3915,Assault,17
+Mumbai,Dadar,19.0196,72.8423,Eve-Teasing,15
+Mumbai,Andheri,19.1197,72.8468,Eve-Teasing,13
+Mumbai,Borivali,19.2307,72.8544,Burglary,11
+Pune,Hadapsar,18.5089,73.9259,Assault,3
+Hyderabad,Secunderabad,17.4399,78.4983,Assault,2
+Hyderabad,Charminar,17.3616,78.4747,Fraud,11
+Mumbai,Borivali,19.2307,72.8544,Theft,19
+Delhi,Karol Bagh,28.6512,77.1908,Burglary,16
+Delhi,Connaught Place,28.6315,77.2167,Eve-Teasing,10
+Bengaluru,Electronic City,12.8392,77.6773,Burglary,6
+Pune,Hadapsar,18.5089,73.9259,Eve-Teasing,18
+Delhi,Saket,28.5265,77.218,Burglary,14
+Bengaluru,Whitefield,12.9698,77.7499,Cyber Crime,8
+Hyderabad,Madhapur,17.4483,78.3915,Eve-Teasing,7
+Delhi,Karol Bagh,28.6512,77.1908,Burglary,14
+Bengaluru,Jayanagar,12.925,77.5938,Fraud,4
+Pune,Swargate,18.5018,73.8636,Cyber Crime,7
+Pune,Shivaji Nagar,18.5308,73.8473,Fraud,12
+Pune,Shivaji Nagar,18.5308,73.8473,Cyber Crime,5
+Hyderabad,Secunderabad,17.4399,78.4983,Cyber Crime,18
+Delhi,Connaught Place,28.6315,77.2167,Theft,8
+Hyderabad,Secunderabad,17.4399,78.4983,Robbery,8
+Delhi,Dwarka,28.6081,77.037,Burglary,4
+Bengaluru,Koramangala,12.9352,77.6245,Burglary,19
+Mumbai,Dadar,19.0196,72.8423,Cyber Crime,6
+Pune,Baner,18.559,73.7898,Fraud,11
+Bengaluru,Hebbal,13.0358,77.597,Assault,1
+Delhi,Lajpat Nagar,28.568,77.2388,Pickpocketing,14
+Pune,Hadapsar,18.5089,73.9259,Robbery,11
+Hyderabad,Hitech City,17.4499,78.3846,Theft,3
+Delhi,Lajpat Nagar,28.568,77.2388,Burglary,13
+Mumbai,Andheri,19.1197,72.8468,Robbery,3
+Hyderabad,Banjara Hills,17.4239,78.4382,Assault,7
+Mumbai,Kurla,19.0672,72.8797,Pickpocketing,13
+Mumbai,Colaba,18.9067,72.8147,Cyber Crime,9
+Delhi,Lajpat Nagar,28.568,77.2388,Robbery,11
+Hyderabad,Hitech City,17.4499,78.3846,Theft,11
+Bengaluru,Hebbal,13.0358,77.597,Burglary,17
+Hyderabad,Charminar,17.3616,78.4747,Theft,5
+Pune,Kothrud,18.5074,73.8077,Robbery,2
+Bengaluru,Whitefield,12.9698,77.7499,Cyber Crime,10
+Delhi,Saket,28.5265,77.218,Assault,12
+Hyderabad,Secunderabad,17.4399,78.4983,Eve-Teasing,1
+Delhi,Lajpat Nagar,28.568,77.2388,Eve-Teasing,17
+Mumbai,Colaba,18.9067,72.8147,Assault,3
+Mumbai,Bandra,19.0558,72.8295,Pickpocketing,5
+Delhi,Rohini,28.7381,77.0922,Robbery,4
+Hyderabad,Charminar,17.3616,78.4747,Burglary,3
+Pune,Kothrud,18.5074,73.8077,Pickpocketing,18
+Hyderabad,Hitech City,17.4499,78.3846,Robbery,19
+Delhi,Saket,28.5265,77.218,Burglary,3
+Pune,Kothrud,18.5074,73.8077,Fraud,15
+Mumbai,Kurla,19.0672,72.8797,Eve-Teasing,4
+Bengaluru,MG Road,12.9746,77.6068,Theft,8
+Delhi,Lajpat Nagar,28.568,77.2388,Cyber Crime,8
+Hyderabad,Hitech City,17.4499,78.3846,Burglary,9
+Delhi,Karol Bagh,28.6512,77.1908,Burglary,5
+Delhi,Rohini,28.7381,77.0922,Theft,3
+Bengaluru,Jayanagar,12.925,77.5938,Assault,14
+Hyderabad,Secunderabad,17.4399,78.4983,Cyber Crime,14
+Pune,Kothrud,18.5074,73.8077,Cyber Crime,7
+Delhi,Connaught Place,28.6315,77.2167,Eve-Teasing,9
+Delhi,Rohini,28.7381,77.0922,Cyber Crime,9
+Bengaluru,Whitefield,12.9698,77.7499,Eve-Teasing,8
+Mumbai,Bandra,19.0558,72.8295,Fraud,11
+Pune,Swargate,18.5018,73.8636,Cyber Crime,6
+Hyderabad,Gachibowli,17.4401,78.3489,Cyber Crime,3
+Mumbai,Borivali,19.2307,72.8544,Burglary,17
+Hyderabad,Madhapur,17.4483,78.3915,Cyber Crime,17
+Pune,Swargate,18.5018,73.8636,Theft,3
+Bengaluru,Hebbal,13.0358,77.597,Burglary,3
+Pune,Hadapsar,18.5089,73.9259,Theft,11
+Delhi,Dwarka,28.6081,77.037,Assault,15
+Delhi,Rohini,28.7381,77.0922,Robbery,9
+Bengaluru,Electronic City,12.8392,77.6773,Fraud,14
+Pune,Hadapsar,18.5089,73.9259,Fraud,9
+Pune,Baner,18.559,73.7898,Fraud,1
+Pune,Hadapsar,18.5089,73.9259,Fraud,8
+Delhi,Karol Bagh,28.6512,77.1908,Theft,1
+Bengaluru,Jayanagar,12.925,77.5938,Cyber Crime,11
+Pune,Hadapsar,18.5089,73.9259,Assault,8
+Mumbai,Andheri,19.1197,72.8468,Fraud,20
+Delhi,Connaught Place,28.6315,77.2167,Theft,4
+Mumbai,Kurla,19.0672,72.8797,Pickpocketing,16
+Hyderabad,Gachibowli,17.4401,78.3489,Pickpocketing,13
+Pune,Shivaji Nagar,18.5308,73.8473,Pickpocketing,2
+Pune,Hadapsar,18.5089,73.9259,Burglary,16
+Mumbai,Dadar,19.0196,72.8423,Robbery,14
+Hyderabad,Secunderabad,17.4399,78.4983,Pickpocketing,4
+Delhi,Dwarka,28.6081,77.037,Eve-Teasing,6
+Bengaluru,Electronic City,12.8392,77.6773,Pickpocketing,15
+Bengaluru,Jayanagar,12.925,77.5938,Fraud,4
+Delhi,Dwarka,28.6081,77.037,Fraud,15
+Pune,Swargate,18.5018,73.8636,Theft,7
+Bengaluru,Hebbal,13.0358,77.597,Assault,5
+Bengaluru,MG Road,12.9746,77.6068,Fraud,12
+Hyderabad,Secunderabad,17.4399,78.4983,Cyber Crime,16
+Delhi,Dwarka,28.6081,77.037,Assault,11
+Mumbai,Kurla,19.0672,72.8797,Eve-Teasing,12
+Hyderabad,Hitech City,17.4499,78.3846,Burglary,19
+Delhi,Rohini,28.7381,77.0922,Cyber Crime,9
+Bengaluru,MG Road,12.9746,77.6068,Eve-Teasing,19
+Delhi,Saket,28.5265,77.218,Assault,20
+Delhi,Connaught Place,28.6315,77.2167,Burglary,3
+Pune,Baner,18.559,73.7898,Assault,13
+Bengaluru,Koramangala,12.9352,77.6245,Theft,11
+Delhi,Saket,28.5265,77.218,Theft,15
+Bengaluru,Hebbal,13.0358,77.597,Eve-Teasing,13
+Pune,Swargate,18.5018,73.8636,Burglary,17
+Mumbai,Kurla,19.0672,72.8797,Robbery,4
+Pune,Baner,18.559,73.7898,Eve-Teasing,18
+Mumbai,Colaba,18.9067,72.8147,Pickpocketing,19
+Bengaluru,Jayanagar,12.925,77.5938,Robbery,17
+Pune,Wakad,18.5978,73.7615,Eve-Teasing,17
+Bengaluru,Electronic City,12.8392,77.6773,Eve-Teasing,17
+Mumbai,Bandra,19.0558,72.8295,Eve-Teasing,10
+Bengaluru,Koramangala,12.9352,77.6245,Pickpocketing,10
+Mumbai,Andheri,19.1197,72.8468,Fraud,12
+Hyderabad,Secunderabad,17.4399,78.4983,Cyber Crime,8
+Delhi,Rohini,28.7381,77.0922,Fraud,17
+Hyderabad,Gachibowli,17.4401,78.3489,Assault,12
+Bengaluru,Hebbal,13.0358,77.597,Burglary,12
+Hyderabad,Banjara Hills,17.4239,78.4382,Robbery,2
+Bengaluru,Electronic City,12.8392,77.6773,Pickpocketing,10
+Pune,Shivaji Nagar,18.5308,73.8473,Eve-Teasing,18
+Bengaluru,MG Road,12.9746,77.6068,Burglary,16
+Delhi,Connaught Place,28.6315,77.2167,Fraud,2
+Pune,Kothrud,18.5074,73.8077,Cyber Crime,1
+Mumbai,Bandra,19.0558,72.8295,Fraud,12
+Delhi,Saket,28.5265,77.218,Eve-Teasing,5
+Bengaluru,MG Road,12.9746,77.6068,Theft,14
+Hyderabad,Madhapur,17.4483,78.3915,Robbery,12
+Pune,Hadapsar,18.5089,73.9259,Assault,15
+Mumbai,Kurla,19.0672,72.8797,Pickpocketing,14
+Hyderabad,Banjara Hills,17.4239,78.4382,Theft,19
+Hyderabad,Banjara Hills,17.4239,78.4382,Fraud,6
+Pune,Kothrud,18.5074,73.8077,Theft,9
+Mumbai,Borivali,19.2307,72.8544,Theft,13
+Pune,Kothrud,18.5074,73.8077,Fraud,12
+Delhi,Connaught Place,28.6315,77.2167,Fraud,16
+Pune,Baner,18.559,73.7898,Fraud,16
+Hyderabad,Gachibowli,17.4401,78.3489,Pickpocketing,10
+Bengaluru,Electronic City,12.8392,77.6773,Eve-Teasing,3
+Bengaluru,Whitefield,12.9698,77.7499,Pickpocketing,20
+Delhi,Rohini,28.7381,77.0922,Robbery,5
+Delhi,Saket,28.5265,77.218,Fraud,16
+Bengaluru,MG Road,12.9746,77.6068,Assault,9
+Hyderabad,Madhapur,17.4483,78.3915,Eve-Teasing,13
+Bengaluru,Electronic City,12.8392,77.6773,Assault,17
+Hyderabad,Secunderabad,17.4399,78.4983,Eve-Teasing,12
+Mumbai,Dadar,19.0196,72.8423,Burglary,4
+Bengaluru,Hebbal,13.0358,77.597,Fraud,17
+Bengaluru,MG Road,12.9746,77.6068,Burglary,3
+Pune,Wakad,18.5978,73.7615,Eve-Teasing,14
+Mumbai,Borivali,19.2307,72.8544,Theft,4
+Delhi,Lajpat Nagar,28.568,77.2388,Cyber Crime,13
+Bengaluru,Electronic City,12.8392,77.6773,Cyber Crime,1
+Bengaluru,Jayanagar,12.925,77.5938,Burglary,20
+Hyderabad,Banjara Hills,17.4239,78.4382,Robbery,5
+Mumbai,Kurla,19.0672,72.8797,Burglary,20
+Delhi,Saket,28.5265,77.218,Robbery,5
+Delhi,Dwarka,28.6081,77.037,Pickpocketing,18
+Hyderabad,Madhapur,17.4483,78.3915,Assault,10
+Mumbai,Kurla,19.0672,72.8797,Fraud,17
+Mumbai,Dadar,19.0196,72.8423,Eve-Teasing,3
+Hyderabad,Hitech City,17.4499,78.3846,Fraud,8
+Mumbai,Borivali,19.2307,72.8544,Burglary,12
+Pune,Shivaji Nagar,18.5308,73.8473,Theft,4
+Bengaluru,Koramangala,12.9352,77.6245,Burglary,5
+Pune,Baner,18.559,73.7898,Burglary,3
+Bengaluru,Jayanagar,12.925,77.5938,Eve-Teasing,19
+Delhi,Rohini,28.7381,77.0922,Pickpocketing,4
+Mumbai,Colaba,18.9067,72.8147,Theft,12
+Mumbai,Borivali,19.2307,72.8544,Eve-Teasing,13
+Bengaluru,Hebbal,13.0358,77.597,Burglary,3
+Bengaluru,Electronic City,12.8392,77.6773,Robbery,1
+Pune,Swargate,18.5018,73.8636,Fraud,10
+Hyderabad,Secunderabad,17.4399,78.4983,Cyber Crime,17
+Mumbai,Borivali,19.2307,72.8544,Cyber Crime,10
+Hyderabad,Banjara Hills,17.4239,78.4382,Assault,13
+Pune,Swargate,18.5018,73.8636,Assault,13
+Hyderabad,Banjara Hills,17.4239,78.4382,Cyber Crime,20
+Mumbai,Colaba,18.9067,72.8147,Theft,17
+Hyderabad,Gachibowli,17.4401,78.3489,Pickpocketing,13
+Pune,Baner,18.559,73.7898,Theft,8
+Mumbai,Borivali,19.2307,72.8544,Eve-Teasing,11
+Hyderabad,Madhapur,17.4483,78.3915,Cyber Crime,18
+Pune,Baner,18.559,73.7898,Fraud,16
+Delhi,Rohini,28.7381,77.0922,Robbery,16
+Delhi,Connaught Place,28.6315,77.2167,Assault,12
+Mumbai,Borivali,19.2307,72.8544,Eve-Teasing,14
+Bengaluru,Whitefield,12.9698,77.7499,Burglary,2
+Pune,Kothrud,18.5074,73.8077,Eve-Teasing,3
+Delhi,Karol Bagh,28.6512,77.1908,Fraud,20
+Hyderabad,Secunderabad,17.4399,78.4983,Burglary,6
+Pune,Hadapsar,18.5089,73.9259,Robbery,17
+Pune,Swargate,18.5018,73.8636,Cyber Crime,12
+Pune,Wakad,18.5978,73.7615,Cyber Crime,6
+Pune,Shivaji Nagar,18.5308,73.8473,Burglary,14
+Hyderabad,Banjara Hills,17.4239,78.4382,Robbery,13
+Mumbai,Bandra,19.0558,72.8295,Eve-Teasing,15
+Hyderabad,Banjara Hills,17.4239,78.4382,Cyber Crime,10
+Delhi,Karol Bagh,28.6512,77.1908,Pickpocketing,18
+Hyderabad,Gachibowli,17.4401,78.3489,Cyber Crime,6
+Delhi,Saket,28.5265,77.218,Pickpocketing,12
+Mumbai,Bandra,19.0558,72.8295,Fraud,16
+Pune,Hadapsar,18.5089,73.9259,Cyber Crime,14
+Hyderabad,Madhapur,17.4483,78.3915,Burglary,17
+Pune,Shivaji Nagar,18.5308,73.8473,Robbery,5
+Pune,Wakad,18.5978,73.7615,Theft,2
+Hyderabad,Madhapur,17.4483,78.3915,Theft,3
+Delhi,Karol Bagh,28.6512,77.1908,Theft,5
+Mumbai,Colaba,18.9067,72.8147,Burglary,9
+Mumbai,Borivali,19.2307,72.8544,Assault,8
+Delhi,Connaught Place,28.6315,77.2167,Burglary,14
+Mumbai,Borivali,19.2307,72.8544,Burglary,5
+Bengaluru,Jayanagar,12.925,77.5938,Eve-Teasing,7
+Pune,Hadapsar,18.5089,73.9259,Pickpocketing,8
+Mumbai,Dadar,19.0196,72.8423,Robbery,5
+Bengaluru,Koramangala,12.9352,77.6245,Fraud,7
+Pune,Wakad,18.5978,73.7615,Fraud,12
+Hyderabad,Banjara Hills,17.4239,78.4382,Burglary,18
+Delhi,Karol Bagh,28.6512,77.1908,Fraud,5
+Hyderabad,Secunderabad,17.4399,78.4983,Robbery,11
+Bengaluru,Electronic City,12.8392,77.6773,Theft,17
+Delhi,Dwarka,28.6081,77.037,Robbery,13
+Mumbai,Andheri,19.1197,72.8468,Assault,11
+Bengaluru,Koramangala,12.9352,77.6245,Cyber Crime,5
+Bengaluru,Electronic City,12.8392,77.6773,Fraud,15
+Hyderabad,Hitech City,17.4499,78.3846,Eve-Teasing,7
+Hyderabad,Madhapur,17.4483,78.3915,Robbery,3
+Mumbai,Kurla,19.0672,72.8797,Fraud,4
+Hyderabad,Gachibowli,17.4401,78.3489,Robbery,18
+Hyderabad,Secunderabad,17.4399,78.4983,Eve-Teasing,3
+Bengaluru,Whitefield,12.9698,77.7499,Cyber Crime,12
+Mumbai,Dadar,19.0196,72.8423,Theft,7
+Mumbai,Bandra,19.0558,72.8295,Pickpocketing,4
+Delhi,Dwarka,28.6081,77.037,Cyber Crime,18
+Delhi,Lajpat Nagar,28.568,77.2388,Cyber Crime,2
+Pune,Baner,18.559,73.7898,Pickpocketing,7
+Bengaluru,Koramangala,12.9352,77.6245,Eve-Teasing,14
+Bengaluru,Hebbal,13.0358,77.597,Robbery,14
+Hyderabad,Gachibowli,17.4401,78.3489,Eve-Teasing,19
+Bengaluru,Whitefield,12.9698,77.7499,Theft,9
+Bengaluru,Electronic City,12.8392,77.6773,Fraud,1
+Delhi,Dwarka,28.6081,77.037,Pickpocketing,8
+Delhi,Karol Bagh,28.6512,77.1908,Cyber Crime,18
+Delhi,Connaught Place,28.6315,77.2167,Assault,10
+Mumbai,Colaba,18.9067,72.8147,Burglary,5
+Hyderabad,Secunderabad,17.4399,78.4983,Cyber Crime,14
+Pune,Wakad,18.5978,73.7615,Cyber Crime,13
+Bengaluru,Jayanagar,12.925,77.5938,Eve-Teasing,19
+Pune,Kothrud,18.5074,73.8077,Assault,12
+Delhi,Rohini,28.7381,77.0922,Fraud,8
+Bengaluru,Electronic City,12.8392,77.6773,Fraud,6
+Mumbai,Kurla,19.0672,72.8797,Eve-Teasing,20
+Delhi,Karol Bagh,28.6512,77.1908,Assault,1
+Delhi,Dwarka,28.6081,77.037,Assault,10
+Delhi,Karol Bagh,28.6512,77.1908,Robbery,6
+Pune,Swargate,18.5018,73.8636,Cyber Crime,5
+Mumbai,Andheri,19.1197,72.8468,Robbery,14
+Pune,Wakad,18.5978,73.7615,Assault,20
+Mumbai,Dadar,19.0196,72.8423,Assault,11
+Mumbai,Colaba,18.9067,72.8147,Burglary,20
+Pune,Kothrud,18.5074,73.8077,Theft,7
+Delhi,Dwarka,28.6081,77.037,Fraud,14
+Bengaluru,Hebbal,13.0358,77.597,Eve-Teasing,7
+Mumbai,Andheri,19.1197,72.8468,Burglary,19
+Pune,Hadapsar,18.5089,73.9259,Pickpocketing,7
+Delhi,Rohini,28.7381,77.0922,Theft,16
+Mumbai,Dadar,19.0196,72.8423,Robbery,9
+Mumbai,Dadar,19.0196,72.8423,Burglary,6
+Pune,Baner,18.559,73.7898,Pickpocketing,17
+Delhi,Lajpat Nagar,28.568,77.2388,Pickpocketing,19
+Mumbai,Bandra,19.0558,72.8295,Theft,19
+Delhi,Rohini,28.7381,77.0922,Theft,18
+Bengaluru,Koramangala,12.9352,77.6245,Cyber Crime,19
+Hyderabad,Madhapur,17.4483,78.3915,Eve-Teasing,18
+Pune,Shivaji Nagar,18.5308,73.8473,Burglary,11
+Mumbai,Dadar,19.0196,72.8423,Robbery,13
+Mumbai,Colaba,18.9067,72.8147,Robbery,5
+Bengaluru,Whitefield,12.9698,77.7499,Theft,12
+Hyderabad,Gachibowli,17.4401,78.3489,Fraud,18
+Mumbai,Borivali,19.2307,72.8544,Theft,19
+Hyderabad,Madhapur,17.4483,78.3915,Assault,7
+Delhi,Dwarka,28.6081,77.037,Theft,3
+Mumbai,Andheri,19.1197,72.8468,Fraud,9
+Bengaluru,MG Road,12.9746,77.6068,Assault,4
+Delhi,Saket,28.5265,77.218,Pickpocketing,9
+Hyderabad,Gachibowli,17.4401,78.3489,Assault,5
+Mumbai,Dadar,19.0196,72.8423,Pickpocketing,18
+Hyderabad,Secunderabad,17.4399,78.4983,Pickpocketing,6
+Delhi,Rohini,28.7381,77.0922,Eve-Teasing,11
+Delhi,Saket,28.5265,77.218,Cyber Crime,7
+Bengaluru,Electronic City,12.8392,77.6773,Robbery,11
+Hyderabad,Madhapur,17.4483,78.3915,Theft,19
+Mumbai,Borivali,19.2307,72.8544,Burglary,13
+Pune,Swargate,18.5018,73.8636,Assault,20
+Hyderabad,Banjara Hills,17.4239,78.4382,Pickpocketing,16
+Bengaluru,Koramangala,12.9352,77.6245,Cyber Crime,9
+Hyderabad,Madhapur,17.4483,78.3915,Theft,19
+Mumbai,Kurla,19.0672,72.8797,Fraud,20
+Mumbai,Kurla,19.0672,72.8797,Assault,7
+Bengaluru,Jayanagar,12.925,77.5938,Robbery,11
+Hyderabad,Madhapur,17.4483,78.3915,Burglary,18
+Pune,Kothrud,18.5074,73.8077,Cyber Crime,18
+Bengaluru,Koramangala,12.9352,77.6245,Fraud,19
+Mumbai,Colaba,18.9067,72.8147,Robbery,9
+Pune,Hadapsar,18.5089,73.9259,Pickpocketing,17
+Mumbai,Kurla,19.0672,72.8797,Theft,4
+Mumbai,Borivali,19.2307,72.8544,Eve-Teasing,4
+Mumbai,Bandra,19.0558,72.8295,Eve-Teasing,2
+Mumbai,Colaba,18.9067,72.8147,Burglary,9
+Mumbai,Bandra,19.0558,72.8295,Fraud,6
+Mumbai,Colaba,18.9067,72.8147,Pickpocketing,16
+Bengaluru,Whitefield,12.9698,77.7499,Theft,2
+Bengaluru,Koramangala,12.9352,77.6245,Pickpocketing,1
+Pune,Wakad,18.5978,73.7615,Robbery,2
+Bengaluru,Jayanagar,12.925,77.5938,Robbery,16
+Pune,Kothrud,18.5074,73.8077,Eve-Teasing,20
+Hyderabad,Madhapur,17.4483,78.3915,Robbery,15
+Delhi,Karol Bagh,28.6512,77.1908,Eve-Teasing,19
+Hyderabad,Hitech City,17.4499,78.3846,Cyber Crime,7
+Hyderabad,Banjara Hills,17.4239,78.4382,Burglary,15
+Hyderabad,Hitech City,17.4499,78.3846,Cyber Crime,4
+Hyderabad,Banjara Hills,17.4239,78.4382,Robbery,20
+Hyderabad,Charminar,17.3616,78.4747,Cyber Crime,2
+Bengaluru,Hebbal,13.0358,77.597,Theft,1
+Bengaluru,Electronic City,12.8392,77.6773,Pickpocketing,2
+Mumbai,Borivali,19.2307,72.8544,Burglary,19
+Mumbai,Dadar,19.0196,72.8423,Theft,2
+Bengaluru,Jayanagar,12.925,77.5938,Theft,1
+Bengaluru,Whitefield,12.9698,77.7499,Cyber Crime,10
+Mumbai,Colaba,18.9067,72.8147,Theft,19
+Bengaluru,Hebbal,13.0358,77.597,Theft,13
+Bengaluru,Electronic City,12.8392,77.6773,Burglary,4
+Hyderabad,Gachibowli,17.4401,78.3489,Eve-Teasing,9
+Delhi,Lajpat Nagar,28.568,77.2388,Robbery,3
+Hyderabad,Hitech City,17.4499,78.3846,Burglary,9
+Pune,Baner,18.559,73.7898,Assault,7
+Mumbai,Bandra,19.0558,72.8295,Assault,14
+Hyderabad,Secunderabad,17.4399,78.4983,Eve-Teasing,16
+Pune,Baner,18.559,73.7898,Cyber Crime,19
+Hyderabad,Gachibowli,17.4401,78.3489,Cyber Crime,5
+Mumbai,Andheri,19.1197,72.8468,Robbery,1
+Delhi,Connaught Place,28.6315,77.2167,Assault,16
+Hyderabad,Gachibowli,17.4401,78.3489,Cyber Crime,15
+Mumbai,Bandra,19.0558,72.8295,Pickpocketing,5
+Bengaluru,Whitefield,12.9698,77.7499,Eve-Teasing,4
+Hyderabad,Banjara Hills,17.4239,78.4382,Cyber Crime,1
+Pune,Hadapsar,18.5089,73.9259,Fraud,13
+Hyderabad,Gachibowli,17.4401,78.3489,Theft,3
+Hyderabad,Hitech City,17.4499,78.3846,Burglary,14
+Mumbai,Colaba,18.9067,72.8147,Burglary,18
+Bengaluru,Koramangala,12.9352,77.6245,Eve-Teasing,20
+Delhi,Karol Bagh,28.6512,77.1908,Assault,7
+Bengaluru,Koramangala,12.9352,77.6245,Pickpocketing,18
+Mumbai,Dadar,19.0196,72.8423,Burglary,5
+Hyderabad,Secunderabad,17.4399,78.4983,Fraud,12
+Hyderabad,Hitech City,17.4499,78.3846,Robbery,9
+Pune,Wakad,18.5978,73.7615,Cyber Crime,19
+Delhi,Rohini,28.7381,77.0922,Burglary,8
+Mumbai,Colaba,18.9067,72.8147,Cyber Crime,5
+Hyderabad,Madhapur,17.4483,78.3915,Burglary,17
+Hyderabad,Gachibowli,17.4401,78.3489,Theft,4
+Pune,Shivaji Nagar,18.5308,73.8473,Fraud,18
+Pune,Wakad,18.5978,73.7615,Cyber Crime,9
+Hyderabad,Charminar,17.3616,78.4747,Burglary,8
+Pune,Shivaji Nagar,18.5308,73.8473,Theft,20
+Delhi,Lajpat Nagar,28.568,77.2388,Fraud,17
+Bengaluru,Hebbal,13.0358,77.597,Assault,16
+Hyderabad,Madhapur,17.4483,78.3915,Fraud,8
+Bengaluru,Koramangala,12.9352,77.6245,Pickpocketing,10
+Mumbai,Bandra,19.0558,72.8295,Fraud,3
+Pune,Wakad,18.5978,73.7615,Burglary,15
+Delhi,Saket,28.5265,77.218,Pickpocketing,4
+Pune,Swargate,18.5018,73.8636,Eve-Teasing,8
+Mumbai,Dadar,19.0196,72.8423,Cyber Crime,14
+Hyderabad,Secunderabad,17.4399,78.4983,Fraud,16
+Hyderabad,Gachibowli,17.4401,78.3489,Theft,1
+Bengaluru,Jayanagar,12.925,77.5938,Cyber Crime,14
+Hyderabad,Gachibowli,17.4401,78.3489,Pickpocketing,8
+Delhi,Rohini,28.7381,77.0922,Robbery,15
+Mumbai,Andheri,19.1197,72.8468,Theft,13
+Delhi,Lajpat Nagar,28.568,77.2388,Burglary,2
+Bengaluru,Whitefield,12.9698,77.7499,Robbery,19
+Hyderabad,Charminar,17.3616,78.4747,Theft,16
+Pune,Baner,18.559,73.7898,Assault,19
+Bengaluru,Hebbal,13.0358,77.597,Assault,19
+Delhi,Lajpat Nagar,28.568,77.2388,Burglary,1
+Pune,Swargate,18.5018,73.8636,Eve-Teasing,17
+Mumbai,Borivali,19.2307,72.8544,Robbery,13
+Hyderabad,Banjara Hills,17.4239,78.4382,Cyber Crime,7
+Delhi,Connaught Place,28.6315,77.2167,Pickpocketing,3
+Mumbai,Kurla,19.0672,72.8797,Assault,1
+Mumbai,Dadar,19.0196,72.8423,Cyber Crime,10
+Bengaluru,Hebbal,13.0358,77.597,Theft,9
+Bengaluru,Hebbal,13.0358,77.597,Fraud,14
+Bengaluru,Koramangala,12.9352,77.6245,Assault,20
+Delhi,Rohini,28.7381,77.0922,Fraud,5
+Pune,Hadapsar,18.5089,73.9259,Robbery,7
+Hyderabad,Madhapur,17.4483,78.3915,Assault,7
+Delhi,Saket,28.5265,77.218,Cyber Crime,2
+Mumbai,Colaba,18.9067,72.8147,Pickpocketing,10
+Bengaluru,Electronic City,12.8392,77.6773,Cyber Crime,15
+Pune,Wakad,18.5978,73.7615,Burglary,18
+Hyderabad,Madhapur,17.4483,78.3915,Cyber Crime,3
+Bengaluru,Koramangala,12.9352,77.6245,Assault,4
+Mumbai,Colaba,18.9067,72.8147,Fraud,13
+Hyderabad,Madhapur,17.4483,78.3915,Assault,16
+Bengaluru,Koramangala,12.9352,77.6245,Fraud,19
+Mumbai,Borivali,19.2307,72.8544,Fraud,19
+Bengaluru,Jayanagar,12.925,77.5938,Fraud,10
+Mumbai,Andheri,19.1197,72.8468,Cyber Crime,4
+Mumbai,Dadar,19.0196,72.8423,Cyber Crime,16
+Delhi,Rohini,28.7381,77.0922,Eve-Teasing,15
+Hyderabad,Charminar,17.3616,78.4747,Assault,11
+Bengaluru,Hebbal,13.0358,77.597,Theft,3
+Pune,Shivaji Nagar,18.5308,73.8473,Theft,12
+Pune,Swargate,18.5018,73.8636,Fraud,17
+Mumbai,Bandra,19.0558,72.8295,Pickpocketing,3
+Mumbai,Kurla,19.0672,72.8797,Burglary,15
+Pune,Baner,18.559,73.7898,Robbery,15
+Pune,Shivaji Nagar,18.5308,73.8473,Cyber Crime,17
+Hyderabad,Banjara Hills,17.4239,78.4382,Theft,16
+Mumbai,Dadar,19.0196,72.8423,Robbery,4
+Pune,Shivaji Nagar,18.5308,73.8473,Eve-Teasing,2
+Delhi,Connaught Place,28.6315,77.2167,Burglary,1
+Hyderabad,Madhapur,17.4483,78.3915,Cyber Crime,11
+Delhi,Lajpat Nagar,28.568,77.2388,Cyber Crime,1
+Pune,Shivaji Nagar,18.5308,73.8473,Burglary,12
+Bengaluru,Hebbal,13.0358,77.597,Robbery,8
+Hyderabad,Hitech City,17.4499,78.3846,Burglary,11
+Pune,Baner,18.559,73.7898,Theft,13
+Bengaluru,Jayanagar,12.925,77.5938,Eve-Teasing,20
+Pune,Baner,18.559,73.7898,Theft,1
+Pune,Hadapsar,18.5089,73.9259,Robbery,15
+Pune,Shivaji Nagar,18.5308,73.8473,Eve-Teasing,5
+Bengaluru,Whitefield,12.9698,77.7499,Pickpocketing,20
+Mumbai,Colaba,18.9067,72.8147,Robbery,5
+Bengaluru,Koramangala,12.9352,77.6245,Burglary,12
+Bengaluru,Electronic City,12.8392,77.6773,Assault,3
+Hyderabad,Gachibowli,17.4401,78.3489,Burglary,12
+Hyderabad,Secunderabad,17.4399,78.4983,Burglary,7
+Hyderabad,Hitech City,17.4499,78.3846,Pickpocketing,20
+Bengaluru,Electronic City,12.8392,77.6773,Fraud,15
+Pune,Shivaji Nagar,18.5308,73.8473,Eve-Teasing,15
+Delhi,Connaught Place,28.6315,77.2167,Burglary,19
+Mumbai,Andheri,19.1197,72.8468,Robbery,10
+Delhi,Karol Bagh,28.6512,77.1908,Theft,6
+Mumbai,Andheri,19.1197,72.8468,Assault,18
+Mumbai,Borivali,19.2307,72.8544,Pickpocketing,8
+Delhi,Connaught Place,28.6315,77.2167,Robbery,16
+Delhi,Karol Bagh,28.6512,77.1908,Fraud,18
+Bengaluru,Electronic City,12.8392,77.6773,Cyber Crime,19
+Delhi,Rohini,28.7381,77.0922,Robbery,18
+Mumbai,Borivali,19.2307,72.8544,Pickpocketing,18
+Hyderabad,Banjara Hills,17.4239,78.4382,Theft,15
+Delhi,Saket,28.5265,77.218,Eve-Teasing,4
+Delhi,Rohini,28.7381,77.0922,Eve-Teasing,4
+Delhi,Connaught Place,28.6315,77.2167,Robbery,13
+Mumbai,Bandra,19.0558,72.8295,Eve-Teasing,20
+Hyderabad,Madhapur,17.4483,78.3915,Eve-Teasing,9
+Delhi,Karol Bagh,28.6512,77.1908,Pickpocketing,16
+Delhi,Connaught Place,28.6315,77.2167,Pickpocketing,2
+Pune,Kothrud,18.5074,73.8077,Theft,2
+Pune,Baner,18.559,73.7898,Assault,11
+Mumbai,Kurla,19.0672,72.8797,Assault,19
+Hyderabad,Hitech City,17.4499,78.3846,Theft,14
+Hyderabad,Madhapur,17.4483,78.3915,Burglary,1
+Hyderabad,Hitech City,17.4499,78.3846,Pickpocketing,12
+Delhi,Karol Bagh,28.6512,77.1908,Theft,12
+Mumbai,Kurla,19.0672,72.8797,Theft,15
