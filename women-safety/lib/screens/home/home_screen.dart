@@ -1,18 +1,15 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:telephony/telephony.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:safety_pal/providers/auth_provider.dart';
 
 // services
 import 'package:safety_pal/services/permission_service.dart';
-import 'package:safety_pal/services/sms_service.dart';
-import 'package:safety_pal/services/email_service.dart';
-import 'package:safety_pal/providers/auth_provider.dart';
+import 'package:safety_pal/services/sos_service.dart';
+import 'package:safety_pal/screens/incident_reporting/incident_report_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -52,6 +49,16 @@ class _HomePageState extends State<HomePage>
     // Then initialize audio components
     await _initializeRecorder();
     await _initializePlayer();
+
+    // Load user profile from Firestore
+    try {
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      print('[HomeScreen] 🔄 Refreshing user data from Firestore on app load');
+      await authProvider.refreshUserData();
+      print('[HomeScreen] ✓ User data refreshed successfully');
+    } catch (e) {
+      print('[HomeScreen] ⚠️ Error refreshing user data: $e');
+    }
 
     _animationController.forward();
   }
@@ -223,42 +230,12 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Future<Map<String, dynamic>> _getUserData() async {
-    try {
-      final directory = await getApplicationDocumentsDirectory();
-      final registerFilePath = '${directory.path}/register_data.json';
-      final aboutUserFilePath = '${directory.path}/about_user_data.json';
-      final guardiansFilePath = '${directory.path}/guardians_data.json';
-
-      final registerFile = File(registerFilePath);
-      final aboutUserFile = File(aboutUserFilePath);
-      final guardiansFile = File(guardiansFilePath);
-
-      Map<String, dynamic> userData = {};
-
-      if (await registerFile.exists()) {
-        final registerContents = await registerFile.readAsString();
-        userData.addAll(json.decode(registerContents));
-      }
-
-      if (await aboutUserFile.exists()) {
-        final aboutUserContents = await aboutUserFile.readAsString();
-        userData.addAll(json.decode(aboutUserContents));
-      }
-
-      if (await guardiansFile.exists()) {
-        final guardiansContents = await guardiansFile.readAsString();
-        userData.addAll(json.decode(guardiansContents));
-      }
-
-      return userData;
-    } catch (e) {
-      print('Error reading user data: $e');
-      return {};
-    }
-  }
-
+  // ════════════════════════════════════════════════════════════════════════════
+  // EXTENDED SOS FLOW: Trigger comprehensive emergency response
+  // ════════════════════════════════════════════════════════════════════════════
   void _showUserDataPopup(BuildContext context) async {
+    print('[HomeScreen] 🚨 SOS Trigger: Starting extended SOS flow');
+    
     if (!_permissionsGranted) {
       _showPermissionSnackBar(
           'Permissions are required to send emergency alerts');
@@ -270,68 +247,113 @@ class _HomePageState extends State<HomePage>
     });
 
     try {
-      final userData = await _getUserData();
+      // Load user data from provider
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final userData = authProvider.userData;
 
-      // extract guardian list from saved data
+      if (userData == null) {
+        setState(() {
+          _isEmailSending = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('User profile not loaded. Please try again.'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+        await authProvider.refreshUserData();
+        return;
+      }
+
+      print('[HomeScreen] ✓ User data loaded: ${userData['name']}');
+
+      // Extract guardian list
       final List<Map<String, dynamic>> guardians = [];
-      if (userData['trustedGuardians'] is List) {
+      if (userData['guardians'] is List) {
+        guardians.addAll(
+            List<Map<String, dynamic>>.from(userData['guardians']));
+      } else if (userData['trustedGuardians'] is List) {
         guardians.addAll(
             List<Map<String, dynamic>>.from(userData['trustedGuardians']));
       }
 
-      // Send SMS first
-      final smsSent = await SmsService.sendEmergencySms(
-        guardians,
-        userName: userData['name'] as String?,
+      if (guardians.isEmpty) {
+        setState(() {
+          _isEmailSending = false;
+        });
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('No Trusted Contacts'),
+              content: const Text(
+                'You have not added any trusted contacts yet. Please add them in your profile settings.',
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+        return;
+      }
+
+      print('[HomeScreen] 🔄 Initiating extended SOS with ${guardians.length} guardians');
+
+      // ════════════════════════════════════════════════════════════════════════
+      // TRIGGER EXTENDED SOS SERVICE
+      // Handles: Guardian alerts, Admin flag check, TTS announcement, 
+      // DB record creation, and AI model API call
+      // ════════════════════════════════════════════════════════════════════════
+      await SOSService.triggerExtendedSOS(
+        context: context,
+        userData: userData,
+        guardians: guardians,
+        audioPath: _audioFilePath ?? '',
+        triggerType: 'manual_button',
       );
 
-      // Then send Email
-      final emailSent = await EmailService.sendEmergencyEmail(
-        guardians,
-        userName: userData['name'] as String?,
-        userEmail: userData['email'] as String?,
-        audioPath: _audioFilePath,
-      );
+      print('[HomeScreen] ✓ Extended SOS flow completed');
 
       setState(() {
         _isEmailSending = false;
       });
 
-      // Show Result Dialog
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text((smsSent && emailSent)
-                ? 'Emergency Alerts Sent'
-                : 'Some Alerts Failed'),
-            content: Text(
-              (smsSent && emailSent)
-                  ? 'Both SMS and Email have been sent to your trusted contacts.'
-                  : (!smsSent && !emailSent)
-                      ? 'Failed to send both SMS and Email. Please check your permissions and network connection.'
-                      : smsSent
-                          ? 'SMS sent, but email failed.'
-                          : 'Email sent, but SMS failed.',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('OK'),
+      // Show completion dialog
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('🚨 Emergency Alert Sent'),
+              content: const Text(
+                'Your emergency alert has been sent to all trusted contacts and our Safety Pal Team. '
+                'Help is on the way. Stay safe!',
               ),
-            ],
-          );
-        },
-      );
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
     } catch (e) {
       setState(() {
         _isEmailSending = false;
       });
-      print("Error in emergency alert: $e");
+      print('[HomeScreen] ❌ Error in SOS: $e');
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error sending emergency alert: $e')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
     }
   }
 
@@ -415,12 +437,12 @@ class _HomePageState extends State<HomePage>
                       ),
                     )
                   else
-                    FutureBuilder<Map<String, dynamic>>(
-                      future: _getUserData(),
+                    FutureBuilder<String>(
+                      future: Future.value(authProvider.userData?['name'] as String? ?? 'User'),
                       builder: (context, snapshot) {
                         String userName = 'User';
                         if (snapshot.connectionState == ConnectionState.done) {
-                          userName = snapshot.data?['name'] ?? 'User';
+                          userName = snapshot.data ?? 'User';
                         }
                         return Padding(
                           padding: const EdgeInsets.all(16.0),
@@ -435,9 +457,13 @@ class _HomePageState extends State<HomePage>
                                 _buildSafetyTip(),
                                 const SizedBox(height: 32),
                                 _buildSOSButton(context),
+                                const SizedBox(height: 20),
+
+                                // 🚨 Emergency Quick Call Buttons
+                                const EmergencyButtons(),
+
                                 const SizedBox(height: 32),
-                                _buildActionButtons(context),
-                              ],
+                                _buildActionButtons(context),]
                             ),
                           ),
                         );
@@ -663,37 +689,53 @@ class _HomePageState extends State<HomePage>
   }
 
   Widget _buildActionButtons(BuildContext context) {
-    return Column(
-      children: [
-        _buildAnimatedActionButton(
-          icon: Icons.shield,
-          title: 'Nearest Safe Zone',
-          color: Colors.blue,
-          onTap: () {
-            Navigator.pushNamed(context, '/safeZones');
-          },
-        ),
-        const SizedBox(height: 20),
-        _buildAnimatedActionButton(
-          icon: Icons.map,
-          title: 'WayFinder',
-          color: Colors.blue,
-          onTap: () {
-            Navigator.pushNamed(context, '/kidsNavi');
-          },
-        ),
-        const SizedBox(height: 20),
-        _buildAnimatedActionButton(
-          icon: Icons.warning,
-          title: 'Risky Zones',
-          color: Colors.red,
-          onTap: () {
-            Navigator.pushNamed(context, '/dangerZones');
-          },
-        ),
-      ],
-    );
-  }
+  return Column(
+    children: [
+      _buildAnimatedActionButton(
+        icon: Icons.shield,
+        title: 'Nearest Safe Zone',
+        color: Colors.blue,
+        onTap: () {
+          Navigator.pushNamed(context, '/safeZones');
+        },
+      ),
+      const SizedBox(height: 20),
+      _buildAnimatedActionButton(
+        icon: Icons.map,
+        title: 'WayFinder',
+        color: Colors.blue,
+        onTap: () {
+          Navigator.pushNamed(context, '/kidsNavi');
+        },
+      ),
+      const SizedBox(height: 20),
+      _buildAnimatedActionButton(
+        icon: Icons.warning,
+        title: 'Risky Zones',
+        color: Colors.red,
+        onTap: () {
+          Navigator.pushNamed(context, '/dangerZones');
+        },
+      ),
+      const SizedBox(height: 20),
+
+      // 📝 NEW: Incident Reporting (3rd person)
+      _buildAnimatedActionButton(
+        icon: Icons.report_problem,
+        title: 'Incident Reporting',
+        color: Colors.deepPurple,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const IncidentReportScreen(),
+            ),
+          );
+        },
+      ),
+    ],
+  );
+}
 
   Widget _buildAnimatedActionButton({
     required IconData icon,

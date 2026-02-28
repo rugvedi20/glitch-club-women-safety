@@ -167,8 +167,8 @@ class _RiskyAreasMapScreenState extends State<RiskyAreasMapScreen> {
       appBar: AppBar(title: Text("Risky Zones")),
       body: FlutterMap(
         options: MapOptions(
-          center: LatLng(18.5018, 73.8636),
-          zoom: 12.0,
+          initialCenter: LatLng(18.5018, 73.8636),
+          initialZoom: 13,
         ),
         children: [
           TileLayer(

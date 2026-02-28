@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:safety_pal/providers/auth_provider.dart';
@@ -8,12 +9,33 @@ import 'package:safety_pal/screens/home/home_screen.dart';
 import 'package:safety_pal/screens/map/risky_areas_map_screen.dart';
 import 'package:safety_pal/screens/game/game_screen.dart';
 import 'package:safety_pal/screens/map/safe_zone_list_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() async {
+
+Future <void>  main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+
+  // Load environment variables
+  await dotenv.load(fileName: '.env');
+
+  // Prevent duplicate Firebase initialization
+  
+    try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    // Ignore duplicate-app error
+  }
+
+  
+
+  // Initialize Supabase
+  await Supabase.initialize(
+    url: 'https://dmskjlxwhqljetgpljiq.supabase.co',
+    anonKey: 'sb_publishable_m1_szeEAgg9Edk5QTT5x7g_liP9worm',
   );
+
   runApp(const MyApp());
 }
 

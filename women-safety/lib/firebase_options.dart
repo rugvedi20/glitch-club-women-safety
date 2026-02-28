@@ -46,7 +46,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '665937901757',
     projectId: 'women-safety-81e5e',
     authDomain: 'women-safety-81e5e.firebaseapp.com',
-    storageBucket: 'women-safety-81e5e.firebasestorage.app',
+    storageBucket: 'women-safety-81e5e.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:665937901757:android:4615f560f66414fb1bdfd4',
     messagingSenderId: '665937901757',
     projectId: 'women-safety-81e5e',
-    storageBucket: 'women-safety-81e5e.firebasestorage.app',
+    storageBucket: 'women-safety-81e5e.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -62,7 +62,7 @@ class DefaultFirebaseOptions {
     appId: '1:665937901757:ios:8b526c4daeebf2ec1bdfd4',
     messagingSenderId: '665937901757',
     projectId: 'women-safety-81e5e',
-    storageBucket: 'women-safety-81e5e.firebasestorage.app',
+    storageBucket: 'women-safety-81e5e.appspot.com',
     iosBundleId: 'com.example.safetyPal',
   );
 
@@ -71,7 +71,7 @@ class DefaultFirebaseOptions {
     appId: '1:665937901757:ios:8b526c4daeebf2ec1bdfd4',
     messagingSenderId: '665937901757',
     projectId: 'women-safety-81e5e',
-    storageBucket: 'women-safety-81e5e.firebasestorage.app',
+    storageBucket: 'women-safety-81e5e.appspot.com',
     iosBundleId: 'com.example.safetyPal',
   );
 
@@ -81,6 +81,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '665937901757',
     projectId: 'women-safety-81e5e',
     authDomain: 'women-safety-81e5e.firebaseapp.com',
-    storageBucket: 'women-safety-81e5e.firebasestorage.app',
+    storageBucket: 'women-safety-81e5e.appspot.com',
   );
 }

@@ -27,21 +27,38 @@ class AuthProvider extends ChangeNotifier {
       _currentUser = user;
       if (user != null) {
         _loadUserData(user.uid);
+        // Notify listeners immediately about authentication state change
+        notifyListeners();
       } else {
         _userData = null;
+        notifyListeners();
       }
-      notifyListeners();
     });
   }
 
   /// Load user data from Firestore.
   Future<void> _loadUserData(String uid) async {
     try {
+      _isLoading = true;
+      notifyListeners();
+      
+      print('[AuthProvider] 📥 Loading user data for UID: $uid');
       _userData = await UserService.getUserData(uid);
+      
+      if (_userData != null) {
+        print('[AuthProvider] ✓ User data loaded successfully: ${_userData!.keys}');
+        _errorMessage = null;
+      } else {
+        print('[AuthProvider] ⚠️ No user data found in Firestore');
+        _errorMessage = 'User profile not found';
+      }
+      
+      _isLoading = false;
       notifyListeners();
     } catch (e) {
-      print('Error loading user data: $e');
-      _errorMessage = 'Failed to load user data';
+      print('[AuthProvider] ✗ Error loading user data: $e');
+      _errorMessage = 'Failed to load user data: $e';
+      _isLoading = false;
       notifyListeners();
     }
   }
@@ -150,6 +167,13 @@ class AuthProvider extends ChangeNotifier {
   void clearError() {
     _errorMessage = null;
     notifyListeners();
+  }
+
+  /// Force refresh user data from Firestore.
+  Future<void> refreshUserData() async {
+    if (_currentUser != null) {
+      await _loadUserData(_currentUser!.uid);
+    }
   }
 
   /// Get user-friendly error message from Firebase error code.

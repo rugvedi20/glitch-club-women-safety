@@ -141,6 +141,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
               : FlutterMap(
                   mapController: _mapController,
                   options: MapOptions(
+                    initialZoom: 14,
                     initialCenter: _userLocation != null
                         ? LatLng(
                             _userLocation!.latitude, _userLocation!.longitude)
@@ -166,6 +167,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     TileLayer(
                       urlTemplate:
                           "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                      userAgentPackageName: 'com.safetypal.app',
                     ),
                     MarkerLayer(
                       markers: [

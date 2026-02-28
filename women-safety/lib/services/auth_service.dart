@@ -44,6 +44,7 @@ class AuthService {
           'guardians': guardians ?? [],
           'createdAt': FieldValue.serverTimestamp(),
           'updatedAt': FieldValue.serverTimestamp(),
+          'alertAdmin':true
         });
 
         return user;
