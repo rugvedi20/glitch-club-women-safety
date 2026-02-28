@@ -110,6 +110,8 @@ class RiskyAreasMapScreen extends StatefulWidget {
 
 class _RiskyAreasMapScreenState extends State<RiskyAreasMapScreen> {
   List<WeightedLatLng> heatmapPoints = [];
+  List<Marker> validatedMarkers = [];
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -126,24 +128,59 @@ class _RiskyAreasMapScreenState extends State<RiskyAreasMapScreen> {
         List<dynamic> data = json.decode(response.body);
 
         if (data.isNotEmpty) {
-          setState(() {
-            heatmapPoints = data.map((point) {
-              double lat = double.tryParse(point['Latitude'].toString()) ?? 0.0;
-              double lon =
-                  double.tryParse(point['Longitude'].toString()) ?? 0.0;
-              double riskWeight = getRiskWeight(point['Risk Level'].toString());
+          final List<WeightedLatLng> points = [];
+          final List<Marker> markers = [];
 
-              return WeightedLatLng(LatLng(lat, lon), riskWeight);
-            }).toList();
+          for (final point in data) {
+            double lat = double.tryParse(point['Latitude'].toString()) ?? 0.0;
+            double lon = double.tryParse(point['Longitude'].toString()) ?? 0.0;
+            String riskLevel = (point['Risk Level'] ?? '').toString();
+            String status = (point['Status'] ?? '').toString().toLowerCase().trim();
+
+            double riskWeight = getRiskWeight(riskLevel);
+            print('[HEATMAP] Point: lat=$lat, lon=$lon, risk=$riskLevel, status=$status, weight=$riskWeight');
+            points.add(WeightedLatLng(LatLng(lat, lon), riskWeight));
+
+            // Add a pin marker for ALL points (debug)
+            markers.add(
+              Marker(
+                point: LatLng(lat, lon),
+                width: 40,
+                height: 40,
+                child: Icon(
+                  Icons.location_on,
+                  color: _getRiskColor(riskLevel),
+                  size: 36,
+                ),
+              ),
+            );
+          }
+
+          setState(() {
+            heatmapPoints = points;
+            validatedMarkers = markers;
+            _isLoading = false;
           });
-          print("Heatmap data updated!");
+          print('[HEATMAP] Total points: ${points.length}, validated markers: ${markers.length}');
+          // Log bounding box to verify spread
+          if (points.isNotEmpty) {
+            final lats = data.map((p) => double.tryParse(p['Latitude'].toString()) ?? 0.0).toList();
+            final lons = data.map((p) => double.tryParse(p['Longitude'].toString()) ?? 0.0).toList();
+            lats.sort();
+            lons.sort();
+            print('[HEATMAP] Lat range: ${lats.first} → ${lats.last}');
+            print('[HEATMAP] Lon range: ${lons.first} → ${lons.last}');
+          }
         } else {
+          setState(() => _isLoading = false);
           print("No data received from API");
         }
       } else {
+        setState(() => _isLoading = false);
         print("Error: ${response.statusCode}");
       }
     } catch (e) {
+      setState(() => _isLoading = false);
       print("Error fetching data: $e");
     }
   }
@@ -161,32 +198,54 @@ class _RiskyAreasMapScreenState extends State<RiskyAreasMapScreen> {
     }
   }
 
+  Color _getRiskColor(String riskLevel) {
+    switch (riskLevel.toLowerCase().trim()) {
+      case 'low':
+        return Colors.yellow.shade700;
+      case 'medium':
+        return Colors.orange;
+      case 'high':
+        return Colors.red;
+      default:
+        return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Risky Zones")),
-      body: FlutterMap(
-        options: MapOptions(
-          initialCenter: LatLng(18.5018, 73.8636),
-          initialZoom: 13,
-        ),
+      appBar: AppBar(title: const Text("Risky Zones")),
+      body: Stack(
         children: [
-          TileLayer(
-            urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-          ),
-          if (heatmapPoints.isNotEmpty)
-            HeatMapLayer(
-              heatMapDataSource: InMemoryHeatMapDataSource(data: heatmapPoints),
-              heatMapOptions: HeatMapOptions(
-                radius: 100,
-                minOpacity: 0.9,
-                gradient: {
-                  0.5: Colors.yellow, // Low Risk
-                  0.75: Colors.orange, // Medium Risk
-                  1.0: Colors.purple, // High Risk
-                },
-              ),
+          FlutterMap(
+            options: MapOptions(
+              initialCenter: LatLng(18.5018, 73.8636),
+              initialZoom: 13,
             ),
+            children: [
+              TileLayer(
+                urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+              ),
+              // if (heatmapPoints.isNotEmpty)
+              //   HeatMapLayer(
+              //     heatMapDataSource:
+              //         InMemoryHeatMapDataSource(data: heatmapPoints),
+              //     heatMapOptions: HeatMapOptions(
+              //       radius: 30,
+              //       minOpacity: 0.5,
+              //       gradient: {
+              //         0.5: Colors.yellow, // Low Risk
+              //         0.75: Colors.orange, // Medium Risk
+              //         1.0: Colors.purple, // High Risk
+              //       },
+              //     ),
+              //   ),
+              if (validatedMarkers.isNotEmpty)
+                MarkerLayer(markers: validatedMarkers),
+            ],
+          ),
+          if (_isLoading)
+            const Center(child: CircularProgressIndicator()),
         ],
       ),
     );

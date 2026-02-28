@@ -5,10 +5,8 @@ import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:safety_pal/providers/auth_provider.dart';
 import 'package:safety_pal/screens/app_initializer.dart';
-import 'package:safety_pal/screens/home/home_screen.dart';
-import 'package:safety_pal/screens/map/risky_areas_map_screen.dart';
-import 'package:safety_pal/screens/game/game_screen.dart';
-import 'package:safety_pal/screens/map/safe_zone_list_screen.dart';
+import 'package:safety_pal/screens/main_shell.dart';
+import 'package:safety_pal/theme/app_theme.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 
@@ -51,16 +49,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Safety Pal',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
+        theme: AppTheme.lightTheme,
         home: const AppInitializer(),
         routes: {
-          '/safeZones': (context) => SafeZoneListScreen(),
-          '/dangerZones': (context) => const RiskyAreasMapScreen(),
-          '/kidsNavi': (context) => SafeNavigationApp(),
-          '/home': (context) => const HomePage(),
+          '/home': (context) => const MainShell(),
         },
       ),
     );

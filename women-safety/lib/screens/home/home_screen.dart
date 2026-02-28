@@ -1,96 +1,93 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_sound/flutter_sound.dart';
-import 'package:telephony/telephony.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:safety_pal/providers/auth_provider.dart';
 
-// services
+import 'package:safety_pal/theme/app_theme.dart';
+import 'package:safety_pal/providers/auth_provider.dart';
 import 'package:safety_pal/services/permission_service.dart';
 import 'package:safety_pal/services/sos_service.dart';
-import 'package:safety_pal/screens/incident_reporting/incident_report_screen.dart';
+import 'package:safety_pal/screens/main_shell.dart';
+import 'package:safety_pal/widgets/shared_components.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final FlutterSoundRecorder _recorder = FlutterSoundRecorder();
-  final FlutterSoundPlayer _player = FlutterSoundPlayer();
-  final Telephony telephony = Telephony.instance;
 
   bool _isRecording = false;
   String? _audioFilePath;
-  bool _isEmailSending = false;
+  bool _isSOSActive = false;
   bool _permissionsGranted = false;
   bool _isLoadingPermissions = true;
-  late AnimationController _animationController;
+  String? _currentAddress;
+  double? _latitude;
+  double? _longitude;
+
+  late AnimationController _pulseController;
+  late AnimationController _fadeInController;
+  late Animation<double> _pulseAnimation;
+
+  // SOS flow state
+  int _sosFlowState = 0; // 0=idle, 1=hold, 2=recording, 3=countdown, 4=active
+
+  // SOS status checklist
+  bool _smsSent = false;
+  bool _emailSent = false;
+  bool _teamAlerted = false;
+  ValueNotifier<bool> _sosCancelToken = ValueNotifier(false);
 
   @override
   void initState() {
     super.initState();
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    )..repeat(reverse: true);
+
+    _pulseAnimation = Tween<double>(begin: 0.9, end: 1.1).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
+
+    _fadeInController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+    _fadeInController.forward();
+
     _initializeApp();
   }
 
   Future<void> _initializeApp() async {
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 500),
-      vsync: this,
-    );
-
-    // Request all permissions first
     await _requestAllPermissions();
-
-    // Then initialize audio components
     await _initializeRecorder();
-    await _initializePlayer();
+    await _fetchLocation();
 
-    // Load user profile from Firestore
     try {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      print('[HomeScreen] 🔄 Refreshing user data from Firestore on app load');
       await authProvider.refreshUserData();
-      print('[HomeScreen] ✓ User data refreshed successfully');
-    } catch (e) {
-      print('[HomeScreen] ⚠️ Error refreshing user data: $e');
-    }
-
-    _animationController.forward();
+    } catch (_) {}
   }
 
   Future<void> _requestAllPermissions() async {
     try {
+      setState(() => _isLoadingPermissions = true);
+      bool allGranted = await PermissionService.requestAllPermissions();
       setState(() {
-        _isLoadingPermissions = true;
-      });
-
-      // Check location services
-      bool locationServiceEnabled =
-          await PermissionService.checkLocationServiceEnabled();
-
-      if (!locationServiceEnabled) {
-        await _showLocationServiceDialog();
-      }
-
-      // Request all permissions
-      bool allPermissionsGranted =
-          await PermissionService.requestAllPermissions();
-
-      setState(() {
-        _permissionsGranted = allPermissionsGranted;
+        _permissionsGranted = allGranted;
         _isLoadingPermissions = false;
       });
-
-      if (!allPermissionsGranted) {
-        await _showPermissionDialog();
-      }
-    } catch (e) {
-      print("Error during permission initialization: $e");
+    } catch (_) {
       setState(() {
         _permissionsGranted = false;
         _isLoadingPermissions = false;
@@ -98,113 +95,45 @@ class _HomePageState extends State<HomePage>
     }
   }
 
-  Future<void> _showLocationServiceDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Location Services Required'),
-          content: const Text(
-            'This app requires location services to send emergency alerts with your location. Please enable location services in your device settings.',
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Open Settings'),
-              onPressed: () async {
-                Navigator.of(context).pop();
-                await Geolocator.openLocationSettings();
-              },
-            ),
-            TextButton(
-              child: const Text('Continue Anyway'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Future<void> _showPermissionDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Permissions Required'),
-          content: const Text(
-            'This app requires several permissions to function properly:\n\n'
-            '• Microphone: For emergency audio recording\n'
-            '• Location: To send your location in emergency alerts\n'
-            '• SMS & Phone: To send emergency messages\n\n'
-            'Some features may not work without these permissions.',
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Open Settings'),
-              onPressed: () async {
-                Navigator.of(context).pop();
-                // await openAppSettings();
-              },
-            ),
-            TextButton(
-              child: const Text('Retry'),
-              onPressed: () async {
-                Navigator.of(context).pop();
-                await _requestAllPermissions();
-              },
-            ),
-            TextButton(
-              child: const Text('Continue Anyway'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   Future<void> _initializeRecorder() async {
     try {
       await _recorder.openRecorder();
-      await _recorder
-          .setSubscriptionDuration(const Duration(milliseconds: 500));
-    } catch (e) {
-      print("Error initializing recorder: $e");
-    }
+      await _recorder.setSubscriptionDuration(const Duration(milliseconds: 500));
+    } catch (_) {}
   }
 
-  Future<void> _initializePlayer() async {
+  Future<void> _fetchLocation() async {
     try {
-      await _player.openPlayer();
-    } catch (e) {
-      print("Error initializing player: $e");
+      Position pos = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(pos.latitude, pos.longitude);
+      if (placemarks.isNotEmpty) {
+        final p = placemarks.first;
+        setState(() {
+          _latitude = pos.latitude;
+          _longitude = pos.longitude;
+          _currentAddress =
+              "${p.street ?? ''}, ${p.locality ?? ''}, ${p.administrativeArea ?? ''}";
+        });
+      }
+    } catch (_) {
+      setState(() => _currentAddress = "Location unavailable");
     }
   }
 
   Future<void> _startRecording() async {
-    // Permission should already be granted, but double-check
-    if (_permissionsGranted) {
-      try {
-        final directory = await getApplicationDocumentsDirectory();
-        _audioFilePath = '${directory.path}/recorded_audio.aac';
-        await _recorder.startRecorder(toFile: _audioFilePath);
-        setState(() {
-          _isRecording = true;
-        });
-      } catch (e) {
-        print('Error starting recording: $e');
-      }
-    } else {
-      print('Microphone permission not granted');
-      _showPermissionSnackBar(
-          'Microphone permission is required for emergency recording');
-    }
+    if (!_permissionsGranted) return;
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      _audioFilePath = '${directory.path}/recorded_audio.aac';
+      await _recorder.startRecorder(toFile: _audioFilePath);
+      setState(() {
+        _isRecording = true;
+        _sosFlowState = 2;
+      });
+    } catch (_) {}
   }
 
   Future<void> _stopRecording() async {
@@ -213,588 +142,759 @@ class _HomePageState extends State<HomePage>
       setState(() {
         _isRecording = false;
       });
-    } catch (e) {
-      print('Error stopping recording: $e');
-    }
+    } catch (_) {}
   }
 
-  void _showPermissionSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        action: SnackBarAction(
-          label: 'Settings',
-          onPressed: () => (),
-        ),
-      ),
-    );
-  }
-
-  // ════════════════════════════════════════════════════════════════════════════
-  // EXTENDED SOS FLOW: Trigger comprehensive emergency response
-  // ════════════════════════════════════════════════════════════════════════════
-  void _showUserDataPopup(BuildContext context) async {
-    print('[HomeScreen] 🚨 SOS Trigger: Starting extended SOS flow');
-    
+  void _triggerSOS() async {
     if (!_permissionsGranted) {
-      _showPermissionSnackBar(
-          'Permissions are required to send emergency alerts');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Permissions required for SOS')),
+      );
       return;
     }
 
-    setState(() {
-      _isEmailSending = true;
-    });
+    // Reset cancel token for fresh SOS
+    _sosCancelToken.value = false;
 
+    // Go directly to emergency active screen and start executing SOS
+    setState(() {
+      _sosFlowState = 4;
+      _isSOSActive = true;
+    });
+    await _executeSOS();
+  }
+
+  Future<void> _executeSOS() async {
     try {
-      // Load user data from provider
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final userData = authProvider.userData;
+      if (userData == null) return;
 
-      if (userData == null) {
-        setState(() {
-          _isEmailSending = false;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('User profile not loaded. Please try again.'),
-            duration: Duration(seconds: 3),
-          ),
-        );
-        await authProvider.refreshUserData();
-        return;
-      }
-
-      print('[HomeScreen] ✓ User data loaded: ${userData['name']}');
-
-      // Extract guardian list
       final List<Map<String, dynamic>> guardians = [];
       if (userData['guardians'] is List) {
-        guardians.addAll(
-            List<Map<String, dynamic>>.from(userData['guardians']));
+        guardians.addAll(List<Map<String, dynamic>>.from(userData['guardians']));
       } else if (userData['trustedGuardians'] is List) {
         guardians.addAll(
             List<Map<String, dynamic>>.from(userData['trustedGuardians']));
       }
 
-      if (guardians.isEmpty) {
-        setState(() {
-          _isEmailSending = false;
-        });
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text('No Trusted Contacts'),
-              content: const Text(
-                'You have not added any trusted contacts yet. Please add them in your profile settings.',
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
-        return;
-      }
+      // Reset all status flags
+      setState(() {
+        _smsSent = false;
+        _emailSent = false;
+        _teamAlerted = false;
+      });
 
-      print('[HomeScreen] 🔄 Initiating extended SOS with ${guardians.length} guardians');
-
-      // ════════════════════════════════════════════════════════════════════════
-      // TRIGGER EXTENDED SOS SERVICE
-      // Handles: Guardian alerts, Admin flag check, TTS announcement, 
-      // DB record creation, and AI model API call
-      // ════════════════════════════════════════════════════════════════════════
       await SOSService.triggerExtendedSOS(
         context: context,
         userData: userData,
         guardians: guardians,
         audioPath: _audioFilePath ?? '',
         triggerType: 'manual_button',
+        cancelToken: _sosCancelToken,
+        onProgress: (step, success) {
+          if (!mounted || _sosCancelToken.value) return;
+          setState(() {
+            switch (step) {
+              case 'sms':
+                _smsSent = success;
+                break;
+              case 'email':
+                _emailSent = success;
+                break;
+              case 'calling':
+                _teamAlerted = success;
+                break;
+              case 'team_cancelled':
+                // Team alert cancelled — notify user and return to idle
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text(
+                        'Guardian alerts sent. Safety Pal team alert cancelled.'),
+                    backgroundColor: AppTheme.warning,
+                    duration: const Duration(seconds: 3),
+                  ),
+                );
+                _sosFlowState = 0;
+                _isSOSActive = false;
+                break;
+            }
+          });
+        },
       );
-
-      print('[HomeScreen] ✓ Extended SOS flow completed');
-
-      setState(() {
-        _isEmailSending = false;
-      });
-
-      // Show completion dialog
+    } catch (_) {
       if (mounted) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text('🚨 Emergency Alert Sent'),
-              content: const Text(
-                'Your emergency alert has been sent to all trusted contacts and our Safety Pal Team. '
-                'Help is on the way. Stay safe!',
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
-      }
-    } catch (e) {
-      setState(() {
-        _isEmailSending = false;
-      });
-      print('[HomeScreen] ❌ Error in SOS: $e');
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
-        );
+        setState(() {
+          _sosFlowState = 0;
+          _isSOSActive = false;
+        });
       }
     }
+  }
+
+  void _cancelSOS() {
+    _sosCancelToken.value = true;
+    setState(() {
+      _sosFlowState = 0;
+      _isSOSActive = false;
+      _smsSent = false;
+      _emailSent = false;
+      _teamAlerted = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_sosFlowState == 4) return _buildEmergencyActiveScreen();
+
     return Consumer<AuthProvider>(
       builder: (context, authProvider, _) {
+        final userName = authProvider.userData?['name'] as String? ?? 'User';
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            title: const Text(
-              'Safety Pal',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            actions: [
-              PopupMenuButton(
-                itemBuilder: (BuildContext context) => [
-                  PopupMenuItem(
-                    child: const Row(
-                      children: [
-                        Icon(Icons.person, size: 20),
-                        SizedBox(width: 8),
-                        Text('Profile'),
+          backgroundColor: AppTheme.background,
+          body: _isLoadingPermissions
+              ? _buildLoadingState()
+              : SafeArea(
+                  child: FadeTransition(
+                    opacity: _fadeInController,
+                    child: CustomScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      slivers: [
+                        SliverToBoxAdapter(child: _buildTopHeader(userName)),
+                        SliverToBoxAdapter(child: _buildSOSSection()),
+                        SliverToBoxAdapter(child: _buildQuickActions()),
+                        SliverToBoxAdapter(child: _buildLocationCard()),
+                        SliverToBoxAdapter(
+                            child: _buildEmergencyCallSection()),
+                        const SliverToBoxAdapter(
+                            child: SizedBox(height: 100)),
                       ],
                     ),
-                    onTap: () {
-                      // TODO: Navigate to profile page
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Profile coming soon!')),
-                      );
-                    },
                   ),
-                  PopupMenuItem(
-                    child: const Row(
-                      children: [
-                        Icon(Icons.logout, size: 20, color: Colors.red),
-                        SizedBox(width: 8),
-                        Text('Logout', style: TextStyle(color: Colors.red)),
-                      ],
-                    ),
-                    onTap: () {
-                      _showLogoutConfirmation(context, authProvider);
-                    },
-                  ),
-                ],
-                icon: const Icon(Icons.menu, color: Colors.black),
-              ),
-            ],
-          ),
-          body: Container(
+                ),
+        );
+      },
+    );
+  }
+
+  Widget _buildLoadingState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  const Color.fromARGB(181, 255, 255, 255),
-                  const Color.fromARGB(255, 254, 255, 246),
-                  Colors.purple[100]!
-                ],
-              ),
+              color: AppTheme.coralLight,
+              shape: BoxShape.circle,
             ),
-            child: SafeArea(
-              child: Stack(
-                children: [
-                  if (_isLoadingPermissions)
-                    const Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CircularProgressIndicator(),
-                          SizedBox(height: 16),
-                          Text(
-                            'Setting up permissions...',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ],
+            child: const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primaryRed),
+              strokeWidth: 3,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Text('Setting up Safety Pal...', style: AppTheme.bodyLarge),
+          const SizedBox(height: 8),
+          Text('Requesting permissions', style: AppTheme.bodySmall),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTopHeader(String userName) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Are you in emergency?',
+                  style: AppTheme.displayMedium,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Hi $userName, we\'re here for you',
+                  style: AppTheme.bodyMedium,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          // Notification icon
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: AppTheme.cardWhite,
+              borderRadius: BorderRadius.circular(AppTheme.radiusSM),
+              boxShadow: AppTheme.cardShadow,
+            ),
+            child: const Icon(
+              Icons.notifications_outlined,
+              color: AppTheme.textSecondary,
+              size: 22,
+            ),
+          ),
+          const SizedBox(width: 8),
+          // Profile avatar
+          Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              gradient: AppTheme.primaryGradient,
+              borderRadius: BorderRadius.circular(AppTheme.radiusSM),
+              boxShadow: AppTheme.cardShadow,
+            ),
+            child: const Icon(Icons.person, color: Colors.white, size: 22),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSOSSection() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 24),
+      child: Column(
+        children: [
+          // SOS Button with pulsing animation
+          Center(
+            child: GestureDetector(
+              onLongPressStart: (_) async {
+                HapticFeedback.heavyImpact();
+                setState(() => _sosFlowState = 1);
+                if (_permissionsGranted) {
+                  await _startRecording();
+                }
+              },
+              onLongPressEnd: (_) async {
+                if (_permissionsGranted && _isRecording) {
+                  await _stopRecording();
+                }
+                _triggerSOS();
+              },
+              onTap: () {
+                HapticFeedback.mediumImpact();
+                _triggerSOS();
+              },
+              child: AnimatedBuilder2(
+                listenable: _pulseAnimation,
+                builder: (context, _) {
+                  final scale = _permissionsGranted
+                      ? _pulseAnimation.value
+                      : 1.0;
+                  return Transform.scale(
+                    scale: _sosFlowState == 1 ? 0.92 : scale,
+                    child: Container(
+                      width: 180,
+                      height: 180,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: _permissionsGranted
+                            ? AppTheme.sosGradient
+                            : null,
+                        color: _permissionsGranted
+                            ? null
+                            : AppTheme.textTertiary,
+                        boxShadow: _permissionsGranted
+                            ? AppTheme.sosShadow(
+                                _sosFlowState == 1 ? 1.5 : 1.0)
+                            : null,
                       ),
-                    )
-                  else
-                    FutureBuilder<String>(
-                      future: Future.value(authProvider.userData?['name'] as String? ?? 'User'),
-                      builder: (context, snapshot) {
-                        String userName = 'User';
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          userName = snapshot.data ?? 'User';
-                        }
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                _buildHeader(userName),
-                                const SizedBox(height: 16),
-                                _buildPermissionStatus(),
-                                const SizedBox(height: 16),
-                                _buildSafetyTip(),
-                                const SizedBox(height: 32),
-                                _buildSOSButton(context),
-                                const SizedBox(height: 20),
-
-                                // 🚨 Emergency Quick Call Buttons
-                                const EmergencyButtons(),
-
-                                const SizedBox(height: 32),
-                                _buildActionButtons(context),]
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  if (_isEmailSending)
-                    Container(
-                      color: Colors.black54,
-                      child: const Center(
+                      child: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            CircularProgressIndicator(),
-                            SizedBox(height: 16),
                             Text(
-                              'Sending emergency alerts...',
-                              style: TextStyle(color: Colors.white, fontSize: 16),
+                              'SOS',
+                              style: TextStyle(
+                                fontFamily: AppTheme.fontFamily,
+                                fontSize: 42,
+                                fontWeight: FontWeight.w900,
+                                color: Colors.white,
+                                letterSpacing: 4,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
+                              ),
                             ),
+                            if (_sosFlowState == 2)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 4),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                      width: 8,
+                                      height: 8,
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    const Text(
+                                      'Recording...',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                           ],
                         ),
                       ),
                     ),
+                  );
+                },
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Hold or Shake to activate',
+            style: AppTheme.bodyMedium.copyWith(
+              color: AppTheme.textTertiary,
+            ),
+          ),
+          if (!_permissionsGranted) ...[
+            const SizedBox(height: 8),
+            GestureDetector(
+              onTap: _requestAllPermissions,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: AppTheme.warningLight,
+                  borderRadius: BorderRadius.circular(AppTheme.radiusFull),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.warning_rounded,
+                        size: 16, color: AppTheme.warning),
+                    const SizedBox(width: 6),
+                    Text(
+                      'Permissions required — Tap to grant',
+                      style: AppTheme.bodySmall
+                          .copyWith(color: AppTheme.warning),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuickActions() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SPSectionHeader(title: 'Quick Actions'),
+          SizedBox(
+            height: 110,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              children: [
+                _buildQuickActionCard(
+                  icon: Icons.phone_in_talk_rounded,
+                  label: 'Emergency\nCall',
+                  color: AppTheme.danger,
+                  onTap: () => _directCall('100'),
+                ),
+                const SizedBox(width: 12),
+                _buildQuickActionCard(
+                  icon: Icons.shield_rounded,
+                  label: 'Safe\nZones',
+                  color: AppTheme.safeGreen,
+                  onTap: () => MainShell.switchTab?.call(1),
+                ),
+                const SizedBox(width: 12),
+                _buildQuickActionCard(
+                  icon: Icons.report_problem_rounded,
+                  label: 'Report\nIncident',
+                  color: AppTheme.warning,
+                  onTap: () => MainShell.switchTab?.call(2),
+                ),
+                const SizedBox(width: 12),
+                _buildQuickActionCard(
+                  icon: Icons.location_on_rounded,
+                  label: 'Live\nLocation',
+                  color: AppTheme.info,
+                  onTap: () => MainShell.switchTab?.call(1),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuickActionCard({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        HapticFeedback.lightImpact();
+        onTap();
+      },
+      child: Container(
+        width: 100,
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          color: AppTheme.cardWhite,
+          borderRadius: BorderRadius.circular(AppTheme.radiusLG),
+          boxShadow: AppTheme.cardShadow,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(AppTheme.radiusSM),
+              ),
+              child: Icon(icon, color: color, size: 22),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              label,
+              style: AppTheme.labelMedium.copyWith(
+                fontSize: 11,
+                height: 1.2,
+              ),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLocationCard() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+      child: SPCard(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Container(
+              width: 52,
+              height: 52,
+              decoration: BoxDecoration(
+                color: AppTheme.primaryRed.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(AppTheme.radiusSM),
+              ),
+              child: const Icon(
+                Icons.location_on_rounded,
+                color: AppTheme.primaryRed,
+                size: 24,
+              ),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Your current address',
+                      style: AppTheme.labelMedium),
+                  const SizedBox(height: 4),
+                  Text(
+                    _currentAddress ?? 'Detecting location...',
+                    style: AppTheme.titleMedium,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ],
               ),
             ),
+            IconButton(
+              onPressed: _fetchLocation,
+              icon: const Icon(Icons.refresh_rounded,
+                  color: AppTheme.textTertiary, size: 20),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEmergencyCallSection() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SPSectionHeader(title: 'Emergency Services'),
+          Row(
+            children: [
+              Expanded(
+                  child: _buildEmergencyServiceCard(
+                Icons.local_police_rounded,
+                'Police',
+                '100',
+                AppTheme.info,
+              )),
+              const SizedBox(width: 12),
+              Expanded(
+                  child: _buildEmergencyServiceCard(
+                Icons.local_hospital_rounded,
+                'Ambulance',
+                '102',
+                AppTheme.danger,
+              )),
+              const SizedBox(width: 12),
+              Expanded(
+                  child: _buildEmergencyServiceCard(
+                Icons.local_fire_department_rounded,
+                'Fire',
+                '101',
+                AppTheme.warning,
+              )),
+            ],
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 
-  void _showLogoutConfirmation(
-      BuildContext context, AuthProvider authProvider) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Logout'),
-          content: const Text('Are you sure you want to logout?'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () async {
-                Navigator.of(context).pop();
-                await authProvider.logout();
-                if (mounted) {
-                  Navigator.of(context).pushReplacementNamed('/');
-                }
-              },
-              child: const Text(
-                'Logout',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          ],
-        );
+  Widget _buildEmergencyServiceCard(
+      IconData icon, String label, String number, Color color) {
+    return GestureDetector(
+      onTap: () {
+        HapticFeedback.mediumImpact();
+        // Direct call using flutter_phone_direct_caller
+        import_call(number);
       },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        decoration: BoxDecoration(
+          color: AppTheme.cardWhite,
+          borderRadius: BorderRadius.circular(AppTheme.radiusLG),
+          boxShadow: AppTheme.cardShadow,
+        ),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: color, size: 24),
+            ),
+            const SizedBox(height: 8),
+            Text(label, style: AppTheme.labelMedium),
+            Text(number, style: AppTheme.bodySmall),
+          ],
+        ),
+      ),
     );
   }
 
-  Widget _buildPermissionStatus() {
-    if (_permissionsGranted) {
-      return Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.green[100],
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.green[300]!),
-        ),
-        child: Row(
-          children: [
-            Icon(Icons.check_circle, color: Colors.green[700], size: 20),
-            const SizedBox(width: 8),
-            const Text(
-              'All permissions granted - Ready for emergencies',
-              style: TextStyle(color: Colors.black87, fontSize: 12),
-            ),
-          ],
-        ),
-      );
-    } else {
-      return Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.orange[100],
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.orange[300]!),
-        ),
-        child: Row(
-          children: [
-            Icon(Icons.warning, color: Colors.orange[700], size: 20),
-            const SizedBox(width: 8),
-            const Expanded(
-              child: Text(
-                'Some permissions missing - Tap to grant permissions',
-                style: TextStyle(color: Colors.black87, fontSize: 12),
-              ),
-            ),
-            TextButton(
-              onPressed: _requestAllPermissions,
-              child: const Text('Grant', style: TextStyle(fontSize: 12)),
-            ),
-          ],
-        ),
-      );
+  void import_call(String number) async {
+    try {
+      await FlutterPhoneDirectCaller.callNumber(number);
+    } catch (e) {
+      debugPrint('[CALL] Error calling $number: $e');
     }
   }
 
-  Widget _buildHeader(String userName) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Hi $userName,',
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
+  void _directCall(String number) {
+    HapticFeedback.mediumImpact();
+    import_call(number);
+  }
+
+  // ── EMERGENCY ACTIVE SCREEN ──────────────────────────────────────────────
+  Widget _buildEmergencyActiveScreen() {
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(gradient: AppTheme.emergencyActiveGradient),
+        child: SafeArea(
+          child: Column(
+            children: [
+              const SizedBox(height: 40),
+              // Animated ambulance icon
+              TweenAnimationBuilder<double>(
+                tween: Tween(begin: 0.0, end: 1.0),
+                duration: const Duration(milliseconds: 800),
+                builder: (context, value, child) {
+                  return Opacity(
+                    opacity: value,
+                    child: Transform.translate(
+                      offset: Offset(0, 20 * (1 - value)),
+                      child: child,
+                    ),
+                  );
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.15),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.local_hospital_rounded,
+                        color: Colors.white,
+                        size: 56,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      'Emergency Alert Sent',
+                      style: AppTheme.displayMedium.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Help is on the way. Stay safe.',
+                      style: AppTheme.bodyLarge.copyWith(
+                        color: Colors.white.withOpacity(0.8),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 40),
+              // Status checklist
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(AppTheme.radiusLG),
+                    border: Border.all(
+                      color: Colors.white.withOpacity(0.2),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      _buildStatusItem(
+                          'SMS Sent to Guardians', _smsSent,
+                          isLoading: !_smsSent),
+                      const SizedBox(height: 16),
+                      _buildStatusItem(
+                          'Email Alert Sent', _emailSent,
+                          isLoading: _smsSent && !_emailSent),
+                      const SizedBox(height: 16),
+                      _buildStatusItem(
+                          'Safety Pal Team Alerted', _teamAlerted,
+                          isLoading: _emailSent && !_teamAlerted),
+                    ],
+                  ),
+                ),
+              ),
+              const Spacer(),
+              // Action buttons
+              Padding(
+                padding: const EdgeInsets.all(24),
+                child: GestureDetector(
+                  onTap: _cancelSOS,
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                          BorderRadius.circular(AppTheme.radiusMD),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Cancel Request',
+                        style: AppTheme.buttonText.copyWith(
+                          color: AppTheme.primaryRed,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        const Text(
-          'Stay Safe!',
+      ),
+    );
+  }
+
+  Widget _buildStatusItem(String label, bool completed,
+      {bool isLoading = false}) {
+    return Row(
+      children: [
+        Container(
+          width: 28,
+          height: 28,
+          decoration: BoxDecoration(
+            color: completed
+                ? Colors.white.withOpacity(0.2)
+                : Colors.white.withOpacity(0.1),
+            shape: BoxShape.circle,
+          ),
+          child: Center(
+            child: isLoading && !completed
+                ? SizedBox(
+                    width: 14,
+                    height: 14,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Colors.white.withOpacity(0.7),
+                      ),
+                    ),
+                  )
+                : Icon(
+                    completed ? Icons.check_rounded : Icons.hourglass_empty,
+                    size: 16,
+                    color: Colors.white,
+                  ),
+          ),
+        ),
+        const SizedBox(width: 14),
+        Text(
+          label,
           style: TextStyle(
-            fontSize: 18,
-            color: Colors.black54,
+            fontFamily: AppTheme.fontFamily,
+            fontSize: 16,
+            fontWeight: completed ? FontWeight.w600 : FontWeight.w400,
+            color: Colors.white.withOpacity(completed ? 1.0 : 0.7),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildSafetyTip() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.yellow[100],
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.yellow.withOpacity(0.3),
-            spreadRadius: 5,
-            blurRadius: 10,
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Icon(Icons.lightbulb_outline, color: Colors.orange[700]),
-          const SizedBox(width: 12),
-          const Expanded(
-            child: Text(
-              'Share your location with trusted contacts when traveling alone.',
-              style: TextStyle(fontSize: 14, color: Colors.black87),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSOSButton(BuildContext context) {
-    return Center(
-      child: GestureDetector(
-        onLongPressStart: (_) async {
-          if (_permissionsGranted) {
-            await _startRecording();
-          } else {
-            _showPermissionSnackBar(
-                'Permissions required for SOS functionality');
-          }
-        },
-        onLongPressEnd: (_) async {
-          if (_permissionsGranted && _isRecording) {
-            await _stopRecording();
-            _showUserDataPopup(context);
-          }
-        },
-        child: Container(
-          margin: const EdgeInsets.only(bottom: 20),
-          width: 140,
-          height: 140,
-          decoration: BoxDecoration(
-            color: _permissionsGranted ? Colors.red : Colors.grey,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: (_permissionsGranted ? Colors.red : Colors.grey)
-                    .withOpacity(0.3),
-                spreadRadius: 5,
-                blurRadius: 10,
-              ),
-            ],
-          ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'SOS',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                if (_isRecording)
-                  const Text(
-                    'Recording...',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
-                  ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildActionButtons(BuildContext context) {
-  return Column(
-    children: [
-      _buildAnimatedActionButton(
-        icon: Icons.shield,
-        title: 'Nearest Safe Zone',
-        color: Colors.blue,
-        onTap: () {
-          Navigator.pushNamed(context, '/safeZones');
-        },
-      ),
-      const SizedBox(height: 20),
-      _buildAnimatedActionButton(
-        icon: Icons.map,
-        title: 'WayFinder',
-        color: Colors.blue,
-        onTap: () {
-          Navigator.pushNamed(context, '/kidsNavi');
-        },
-      ),
-      const SizedBox(height: 20),
-      _buildAnimatedActionButton(
-        icon: Icons.warning,
-        title: 'Risky Zones',
-        color: Colors.red,
-        onTap: () {
-          Navigator.pushNamed(context, '/dangerZones');
-        },
-      ),
-      const SizedBox(height: 20),
-
-      // 📝 NEW: Incident Reporting (3rd person)
-      _buildAnimatedActionButton(
-        icon: Icons.report_problem,
-        title: 'Incident Reporting',
-        color: Colors.deepPurple,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const IncidentReportScreen(),
-            ),
-          );
-        },
-      ),
-    ],
-  );
-}
-
-  Widget _buildAnimatedActionButton({
-    required IconData icon,
-    required String title,
-    required Color color,
-    VoidCallback? onTap,
-  }) {
-    return SlideTransition(
-      position: Tween<Offset>(
-        begin: const Offset(-1, 0),
-        end: Offset.zero,
-      ).animate(CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeInOut,
-      )),
-      child: GestureDetector(
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 500),
-          width: double.infinity,
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.9),
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
-                spreadRadius: 3,
-                blurRadius: 10,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Row(
-            children: [
-              Icon(icon, color: color, size: 40),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   void dispose() {
+    _sosCancelToken.dispose();
     _recorder.closeRecorder();
-    _player.closePlayer();
-    _animationController.dispose();
+    _pulseController.dispose();
+    _fadeInController.dispose();
     super.dispose();
   }
 }
