@@ -1,81 +1,298 @@
-# Safety Pal (women-safety)
+# 🛡️ Safety-Pal
 
-A cross‑platform Flutter application built for a hackathon to help users
-stay safe by maintaining trusted contacts, sending SOS alerts, and visualising
-safe/risky zones on a map.  The code is structured into modular screens and
-services to make it easy to maintain and extend.
+### Distributed Women Safety Network
 
-## High‑level architecture
+> Bridging the gap between fear and response through intelligent escalation, preventive awareness, and hardware-backed redundancy.
 
-- **Screens** – organised under `lib/screens/` by feature: `auth`, `home`,
-  `map`, `game`, `heatmap`.
-- **Widgets** – reusable UI components under `lib/widgets`.
-- **Services** – classes encapsulating platform logic and I/O under
-  `lib/services` (permissions, SMS/email, user data).
-- **Models / utils** – small helpers and extensions as needed.
+---
 
-## Features & corresponding packages / APIs
+## 📌 Overview
 
-| Feature | Packages / APIs | Notes |
-|---------|----------------|-------|
-| **Authentication flow** (sign‑up, about you, add guardians) | `flutter/material` UI, `path_provider` for local JSON storage | Data is stored locally via `UserDataService`. No backend yet. |
-| **Home page with SOS** | `permission_handler`, `geolocator`, `telephony`, `flutter_sound`, `mailer` | Permissions managed by `PermissionService`; pressing SOS records audio, sends SMS and email alerts via `SmsService`/`EmailService` using Gmail SMTP. |
-| **Safe‑zone listing** | `http` + Overpass API for nearby hospitals/police/malls, `geolocator` for location | Displays top‑5 closest places; navigates using `NavigationScreen` which calls OSRM routing API and draws a polyline with `flutter_map` / `latlong2`. |
-| **Risky‑areas heat‑map** | `http` calls to local Flask server, `flutter_map_heatmap` | Server reads `crime_dataset_1000.csv` and clusters data using Python (`scikit‑learn`, `pandas`). Flutter layer fetches `/area-risk` and plots weighted points. |
-| **Real‑time navigation game** | Same map/location packages plus game logic | Single screen in `lib/screens/game/`; uses position stream to update route and collect power‑ups. |
-| **Permissions helper** | `permission_handler`, `telephony`, `geolocator` | Encapsulated in `PermissionService` service. |
+Safety-Pal is a multi-layer women safety ecosystem designed to reduce emergency response delay and improve real-time intervention.
 
-> **Note:** any database code was removed; the app currently keeps user data
-> in local JSON files.  No Firebase or other backend is required for build.
+Unlike traditional panic button applications, Safety-Pal integrates:
 
-## Packages (versions are in `pubspec.yaml`)
+* 🔴 Voice-based SOS with smart escalation
+* 📞 Automated guardian voice calling agent
+* 🗺 Verified Safe Zones & Risk Heatmap
+* 📝 Admin-validated incident reporting
+* 📟 Suraksha Netra hardware redundancy
 
-- `path_provider` ^2.0.11
-- `flutter_sound` ^9.2.13
-- `permission_handler` ^10.2.0
-- `url_launcher` ^6.3.1
-- `geolocator` ^9.0.2
-- `google_fonts`, `google_maps_flutter`, `flutter_map`, `latlong2`,
-  `flutter_map_heatmap`
-- `mailer` ^6.0.1, `flutter_dotenv` ^5.2.1, `telephony` ^0.2.0
+The system consists of:
 
-_(plus standard Flutter SDK packages)_
+* 📱 Women Client Application
+* 🖥 Admin Web Dashboard
+* 📲 Shake Detection Module
 
-## Folder structure summary
+---
+
+## 🗂 Repository Structure
 
 ```
-lib/
-  screens/
-    auth/
-      register_screen.dart
-      about_user_screen.dart
-      add_guardians_screen.dart
-    home/
-      home_screen.dart
-    map/
-      safe_zone_list_screen.dart    # list view
-      navigation_screen.dart        # map + routing view
-      risky_areas_map_screen.dart   # heat‑map view
-    game/
-      game_screen.dart              # wrapper with score
-      real_time_navigation_game.dart
-  services/
-    permission_service.dart
-    sms_service.dart
-    email_service.dart
-    user_data_service.dart
-  widgets/
-    buttons.dart
-    auth_field.dart
-    agreements.dart
-    gender_button.dart
-    ...
+Safety-Pal/
+│
+├── women-safety/        # Flutter Client Application (Women)
+├── safety-pal-admin/    # Admin Web Application
+├── shake-detection/     # Shake Detection Feature Module
+└── README.md
 ```
 
-## Getting started
+---
 
-1.  `flutter pub get`
-2.  `flutter run` (choose a device)
+# 📱 women-safety
 
-All features run without any backend; the only external HTTP calls are to
-public map APIs and the local Flask server for heat‑map data.
+## Client Side Application (Women)
+
+Flutter-based mobile application designed for real-time emergency support and preventive safety awareness.
+
+---
+
+## 🚀 Core Features
+
+### 🔴 1. Voice SOS with Smart Escalation
+
+* Shake or hold activation
+* Records live audio
+* Sends SMS and email with real-time location
+* 10-second escalation timer
+* Automatically triggers guardian voice call if not cancelled
+
+---
+
+### 📞 2. Automated Voice Calling Agent
+
+* Server-triggered real-time call
+* Speaks emergency message to guardians
+* Reduces dependency on passive notifications
+
+---
+
+### 🗺 3. Nearest Safe Zones
+
+* Displays verified safe locations (Police, Hospitals, NGOs)
+* Map-based navigation
+* Distance calculation
+
+---
+
+### 🔥 4. Risky Areas Heatmap
+
+* Visual heatmap of high-risk zones
+* Built from:
+
+  * Approved incident reports
+  * Existing crime datasets
+* Real-time risk warning
+
+---
+
+### 📝 5. Incident Reporting
+
+Users can submit reports with:
+
+* Incident category
+* Description
+* Auto geotag
+* Optional photo upload
+* Severity level
+* Anonymous option
+
+All reports require admin approval before influencing heatmap.
+
+---
+
+### 🚨 6. One-Tap Emergency
+
+* Direct call to emergency services
+* Minimal friction design
+
+---
+
+### 👤 7. Guardian & Profile Management
+
+* Add / remove guardians
+* Privacy controls
+* Permission management
+
+---
+
+### 📟 8. Suraksha Netra Integration
+
+* Hardware status monitoring
+* GPS & GSM connectivity indicators
+* Device testing interface
+
+---
+
+## 🛠 Tech Stack (Client)
+
+* Flutter
+* Firebase Core
+* Cloud Firestore
+* Geolocator
+* Telephony (SMS)
+* Mailer (Email)
+* Flutter Map
+
+---
+
+# 🖥 safety-pal-admin
+
+## Admin Side Web Application
+
+Web-based dashboard for monitoring, moderation, and safety intelligence management.
+
+---
+
+## 🎯 Purpose
+
+Ensures:
+
+* Data validation
+* Incident moderation
+* Safe zone management
+* System reliability
+
+---
+
+## 🚀 Admin Features
+
+### 📝 Incident Moderation
+
+* View submitted reports
+* Approve / reject incidents
+* Categorize incidents
+* Push approved incidents to heatmap dataset
+
+---
+
+### 🗺 Safe Zone Management
+
+* Add / edit verified safe zones
+* Manage zone categories
+
+---
+
+### 📊 Monitoring Dashboard
+
+* View SOS logs
+* Track active alerts
+* Basic analytics
+
+---
+
+## 🛠 Tech Stack (Admin)
+
+* Web Framework (React / Next.js / etc.)
+* Firebase Authentication
+* Firestore
+* REST APIs
+
+---
+
+# 📲 shake-detection
+
+## Shake Detection Feature Module
+
+Dedicated motion-based trigger module for seamless SOS activation.
+
+---
+
+## 🎯 Purpose
+
+Provides shake-to-trigger functionality for emergency activation.
+
+---
+
+## ⚙ Functionality
+
+* Monitors device accelerometer
+* Detects predefined shake threshold
+* Prevents false positives
+* Triggers Voice SOS workflow
+* Supports cooldown logic
+
+---
+
+## 🔧 Implementation Concepts
+
+* Sensor listeners
+* Threshold filtering
+* Motion smoothing
+* Background execution support
+
+---
+
+# 📟 Suraksha Netra (Hardware Integration)
+
+An independent hardware safety module designed for redundancy.
+
+---
+
+## 🔐 Capabilities
+
+* GPS module
+* GSM connectivity
+* Microphone & camera
+* Direct cloud communication
+* Works without smartphone
+
+Adds hardware-level safety in case of phone failure.
+
+---
+
+# 🧠 System Architecture Overview
+
+```
+Flutter Client (women-safety)
+        ↓
+Backend APIs
+        ↓
+Database
+        ↑
+Admin Dashboard (safety-pal-admin)
+        ↑
+Suraksha Netra Hardware
+```
+
+---
+
+
+---
+
+# 🚀 Getting Started
+
+## 📱 Run Client App
+
+```bash
+cd women-safety
+flutter pub get
+flutter run
+```
+
+---
+
+## 🖥 Run Admin App
+
+```bash
+cd safety-pal-admin
+npm install
+npm start
+```
+
+---
+
+# 📌 Future Scope
+
+* Wearable version of Suraksha Netra
+* City-wide deployment
+* Government API integrations
+* Advanced predictive risk models
+
+---
+
+# 🤝 Contributors
+
+Team Safety-Pal
+Morpheus Hackathon Project – 2026
+
